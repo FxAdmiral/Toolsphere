@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Learn the phases of incident response, how to contain and recover from an attack, and how to write a simple phishing playbook.">
+
+    <title>Incident Response for Beginners: What To Do When Something Goes Wrong | ToolSphere</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="container nav-container">
+
+            <a href="../index.html" class="logo">
+                Tool<span>Sphere</span>
+            </a>
+
+            <nav class="navigation" aria-label="Main navigation">
+
+                <a href="../index.html">Home</a>
+
+                <a href="../tools.html">Tools</a>
+
+                <a href="../cybersecurity.html" aria-current="page">Cybersecurity</a>
+
+                <a href="../programming.html">Programming</a>
+
+                <a href="../index.html#articles">Technology</a>
+
+                <a href="../contact.html">Contact</a>
+
+            </nav>
+
+            <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+
+        <section class="tool-page">
+
+            <div class="container">
+
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../index.html">Home</a> &rsaquo;
+                    <a href="../cybersecurity.html">Cybersecurity</a> &rsaquo;
+                    <span>Incident Response</span>
+                </nav>
+
+                <div class="tool-intro">
+
+                    <p class="section-label">
+                        SOC ANALYST • GUIDE 3 OF 3
+                    </p>
+
+                    <h1>
+                        Incident Response for Beginners: What To Do When Something Goes Wrong
+                    </h1>
+
+                    <p>
+                        Learn the calm, step-by-step way organisations deal with a security incident.
+                    </p>
+
+                </div>
+
+
+                <div class="content-card article">
+
+
+
+
+                    <div id="panel-guide" class="tab-panel">
+
+                        <p class="meta">
+                            Published 27 October 2026 • About 5 minutes to read
+                        </p>
+
+                        <div class="toc"><p class="toc-title">In this guide</p><ol><li><a href="#what-is-an-incident">What is an incident?</a></li><li><a href="#the-phases-of-incident-response">The phases of incident response</a></li><li><a href="#containment-stop-the-spread-first">Containment: stop the spread first</a></li><li><a href="#eradication-and-recovery">Eradication and recovery</a></li><li><a href="#severity-and-who-to-tell">Severity and who to tell</a></li><li><a href="#a-simple-playbook">A simple playbook</a></li><li><a href="#keep-a-timeline">Keep a timeline</a></li><li><a href="#checking-files-safely">Checking files safely</a></li><li><a href="#after-the-incident">After the incident</a></li><li><a href="#common-beginner-mistakes">Common beginner mistakes</a></li><li><a href="#practice-project">Practice project</a></li><li><a href="#summary">Summary</a></li><li><a href="#further-reading">Further reading</a></li></ol></div>
+
+
+<h2 id="what-is-an-incident">What is an incident?</h2>
+
+<p>
+    A security <strong>incident</strong> is an event that harms, or could harm,
+    the confidentiality, integrity or availability of an organisation's
+    information or systems. A stolen laptop, a staff member who entered their
+    password on a fake page, ransomware that locks files, and a website taken
+    offline are all incidents. <strong>Incident response</strong> (IR) is the
+    organised way of dealing with them.
+</p>
+
+<p>
+    The aim is not only to stop the attack. It is to limit the damage,
+    restore normal work, and learn enough that it is less likely to happen
+    again.
+</p>
+
+<h2 id="the-phases-of-incident-response">The phases of incident response</h2>
+
+<p>
+    A widely taught model comes from the US standards body NIST. Its older
+    guide describes four phases, and many teams still use them:
+</p>
+
+<ol>
+    <li><strong>Preparation:</strong> have people, tools, contact lists and written plans ready before anything happens.</li>
+    <li><strong>Detection and analysis:</strong> notice a problem, decide whether it is real, and work out what it affects.</li>
+    <li><strong>Containment, eradication and recovery:</strong> stop it spreading, remove the cause, and bring systems back safely.</li>
+    <li><strong>Post-incident activity:</strong> review what happened and improve.</li>
+</ol>
+
+<p>
+    NIST published a newer revision of this guide in 2025 that fits incident
+    response into its wider Cybersecurity Framework, which the
+    <a href="what-is-cybersecurity.html">What Is Cybersecurity?</a> article
+    mentions. The idea stays the same: prepare, detect, respond, recover and
+    learn.
+</p>
+
+<h2 id="containment-stop-the-spread-first">Containment: stop the spread first</h2>
+
+<p>
+    Containment means limiting how far the problem can reach. Typical steps are
+    isolating an infected laptop from the network, disabling a compromised
+    account, blocking a malicious address, or taking a service offline. Choose
+    the least disruptive step that works, but do not hesitate when the risk is
+    high.
+</p>
+
+<div class="notice">
+    <strong>Do not wipe or switch off a machine in a hurry.</strong>
+    Evidence such as running programs and logs can disappear. Isolate first,
+    record what you see, and follow your team's evidence rules, because the
+    material may be needed to understand the attack or for legal reasons.
+</div>
+
+<h2 id="eradication-and-recovery">Eradication and recovery</h2>
+
+<ul>
+    <li><strong>Eradication:</strong> remove the cause, such as malware, a bad account or the weakness that let the attacker in.</li>
+    <li><strong>Recovery:</strong> restore from clean backups, change passwords and keys that may be exposed, and watch closely for the attacker's return.</li>
+</ul>
+
+<h2 id="severity-and-who-to-tell">Severity and who to tell</h2>
+
+<p>
+    Teams rate incidents, for example low, medium, high and critical, based on
+    how much data, how many people and how important the systems are. Higher
+    severity means faster action and more people informed. Know who must be
+    told: your manager, the security lead, the legal team, and sometimes
+    customers or regulators. Rules about reporting a data breach differ by
+    country, so organisations check with their legal advisers.
+</p>
+
+<h2 id="a-simple-playbook">A simple playbook</h2>
+
+<p>
+    A <strong>playbook</strong> is a checklist for one kind of incident, so
+    people do not have to invent a plan under pressure. Here is one for a
+    reported phishing email:
+</p>
+
+<pre><code>PLAYBOOK: Reported phishing email
+
+1. Collect    Get the original email (as an attachment), sender, time, who received it
+2. Check      Is there a link or attachment? Has anyone clicked or opened it?
+3. Contain    Remove the email from all mailboxes; block the sender and any bad link
+4. Assess     If someone clicked or entered a password, treat that account as exposed
+5. Recover    Reset the password, sign the user out everywhere, check for new mail rules
+6. Notify     Tell the affected users and the security lead
+7. Learn      Record what happened and what would have stopped it sooner</code></pre>
+
+<h2 id="keep-a-timeline">Keep a timeline</h2>
+
+<p>
+    Write down what happened and when, as it happens. A good timeline looks
+    like this:
+</p>
+
+<pre><code>09:02  User reports a suspicious email to the security mailbox
+09:10  Analyst confirms 14 staff received it; 2 clicked the link
+09:18  Email removed from all mailboxes; link blocked
+09:25  Passwords reset for the 2 users; sessions signed out
+09:40  Mailbox rules checked: no forwarding rules found
+10:15  Staff notified; incident ticket updated with timeline</code></pre>
+
+<p>
+    Use one time zone for everything, and record facts rather than guesses. If
+    you are unsure, write "unconfirmed".
+</p>
+
+<h2 id="checking-files-safely">Checking files safely</h2>
+
+<p>
+    Sometimes you need to know whether a file is the same as a known one. A
+    <strong>hash</strong> is a fingerprint of a file's contents, so identical
+    files give identical hashes. Our
+    <a href="../tools/hash-generator.html">Hash Generator</a> shows how this
+    works with text. Never open a suspicious file on your own computer. Follow
+    your organisation's process and use an isolated environment.
+</p>
+
+<h2 id="after-the-incident">After the incident</h2>
+
+<p>
+    Hold a <strong>lessons-learned</strong> meeting soon after. Ask what
+    happened, what worked, what slowed you down and what to change. The aim is
+    to improve the system, not to blame a person. A blame-free review makes
+    people report problems quickly, which is what you want.
+</p>
+
+<h2 id="common-beginner-mistakes">Common beginner mistakes</h2>
+
+<ul>
+    <li>Panicking and changing many things at once, so nobody knows what helped.</li>
+    <li>Not writing notes during the incident.</li>
+    <li>Wiping a machine before saving evidence.</li>
+    <li>Restoring systems before removing the cause, so the attacker returns.</li>
+    <li>Skipping the lessons-learned review.</li>
+    <li>Blaming the person who clicked, so others stop reporting.</li>
+</ul>
+
+<h2 id="practice-project">Practice project</h2>
+
+<p>
+    Write a playbook for a lost or stolen laptop, in the same numbered style.
+    Include who to tell, how to lock or wipe it remotely, which passwords to
+    change and what to record. Then invent a small incident and write a
+    five-line timeline for it.
+</p>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+    <li>Incident response is the organised handling of security incidents.</li>
+    <li>The phases are prepare, detect and analyse, contain, eradicate and recover, then learn.</li>
+    <li>Contain first, but preserve evidence.</li>
+    <li>Playbooks and timelines keep people calm and consistent.</li>
+    <li>Review without blame, and improve.</li>
+</ul>
+
+<h2 id="further-reading">Further reading</h2>
+
+<ul>
+    <li><a href="https://csrc.nist.gov/pubs/sp/800/61/r3/final">NIST SP 800-61 Rev. 3: Incident Response Recommendations and Considerations for Cybersecurity Risk Management</a></li>
+    <li><a href="https://www.cisa.gov/topics/cybersecurity-best-practices">CISA: Cybersecurity best practices</a></li>
+</ul>
+
+
+                        <div class="related"><strong>Related on ToolSphere:</strong> <a href="../tools/hash-generator.html">Hash Generator</a></div>
+
+                        <div class="path-nav">
+                            <a class="prev" href="logs-alerts-and-siem.html"><span>PREVIOUS GUIDE</span>Logs &amp; SIEM</a>
+                            <a class="next" href="../cybersecurity.html"><span>END OF TRACK</span>Back to Cybersecurity guides</a>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="container footer-content">
+
+            <div>
+
+                <h3>
+                    ToolSphere
+                </h3>
+
+                <p>
+                    Technology, tools and practical
+                    learning resources.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Explore
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../tools.html">
+                        Tools
+                    </a>
+
+                    <a href="../index.html#articles">
+                        Articles
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Learning
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../cybersecurity.html">
+                        Cybersecurity
+                    </a>
+
+                    <a href="../programming.html">
+                        Programming
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../about.html">
+                        About
+                    </a>
+
+                    <a href="../contact.html">
+                        Contact
+                    </a>
+
+                    <a href="../privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="../terms.html">
+                        Terms of Use
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 ToolSphere. All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

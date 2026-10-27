@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Learn what Base64 is, how it works, where developers and security analysts meet it, and why it is encoding, not encryption.">
+
+    <title>What Is Base64, and Why Isn't It Encryption? | ToolSphere</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="container nav-container">
+
+            <a href="../index.html" class="logo">
+                Tool<span>Sphere</span>
+            </a>
+
+            <nav class="navigation" aria-label="Main navigation">
+
+                <a href="../index.html">Home</a>
+
+                <a href="../tools.html">Tools</a>
+
+                <a href="../cybersecurity.html">Cybersecurity</a>
+
+                <a href="../programming.html">Programming</a>
+
+                <a href="../index.html#articles">Technology</a>
+
+                <a href="../contact.html">Contact</a>
+
+            </nav>
+
+            <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+
+        <section class="tool-page">
+
+            <div class="container">
+
+                <div class="tool-intro">
+
+                    <p class="section-label">
+                        PROGRAMMING • SECURITY
+                    </p>
+
+                    <h1>
+                        What Is Base64, and Why Isn't It Encryption?
+                    </h1>
+
+                    <p>
+                        A plain-English guide for beginners, with examples you can try yourself.
+                    </p>
+
+                </div>
+
+
+                <div class="content-card article">
+
+                    <p class="meta">
+                        Published 25 October 2026 • About 6 minutes to read
+                    </p>
+
+                    <div class="callout">
+                        <strong>The short answer:</strong> Base64 is a way of
+                        writing data using only ordinary letters, numbers and
+                        a few symbols. It changes how data looks, not who can
+                        read it. Anyone can reverse it in a second, so it
+                        protects nothing.
+                    </div>
+
+                    <h2>What is Base64?</h2>
+
+                    <p>
+                        Computers store everything as bytes, which are
+                        numbers from 0 to 255. Some systems, such as email
+                        and parts of the web, were built to carry only
+                        plain text. Raw bytes can break them. Base64 solves
+                        this by turning any data into a string that uses just
+                        64 safe characters: the letters A to Z and a to z, the
+                        digits 0 to 9, and the symbols <code>+</code> and
+                        <code>/</code>.
+                    </p>
+
+                    <h2>How it works</h2>
+
+                    <p>
+                        Base64 takes the data three bytes at a time and
+                        rewrites those 24 bits as four groups of 6 bits. Each
+                        6-bit group is a number from 0 to 63, and each number
+                        is replaced by one character from the alphabet.
+                        So three bytes become four characters.
+                    </p>
+
+                    <p>
+                        For example, the three letters <code>Man</code>
+                        become <code>TWFu</code>. The word
+                        <code>hello</code> becomes <code>aGVsbG8=</code>.
+                    </p>
+
+                    <p>
+                        The <code>=</code> at the end is padding. When the
+                        data does not divide evenly into groups of three
+                        bytes, one or two <code>=</code> signs fill the gap so
+                        the length is a multiple of four. Because three
+                        bytes become four characters, Base64 text is about
+                        one third larger than the original data.
+                    </p>
+
+                    <p>
+                        A variant called <strong>Base64URL</strong> swaps
+                        <code>+</code> and <code>/</code> for <code>-</code>
+                        and <code>_</code> so the result is safe inside web
+                        addresses. JSON Web Tokens use this version.
+                    </p>
+
+                    <h2>Where you will meet Base64</h2>
+
+                    <ul>
+                        <li><strong>Web login headers.</strong> With "Basic" authentication, the browser sends <code>username:password</code> as Base64. The text <code>user:pass</code> becomes <code>dXNlcjpwYXNz</code>.</li>
+                        <li><strong>Email.</strong> Attachments and non-English text are sent as Base64 so mail systems can carry them.</li>
+                        <li><strong>Data URLs.</strong> A small image can be placed straight inside a web page as Base64 text.</li>
+                        <li><strong>Login tokens.</strong> The readable parts of a JSON Web Token (JWT) are Base64URL text.</li>
+                        <li><strong>Configuration files.</strong> Tools such as Kubernetes store secret values as Base64 in their files.</li>
+                    </ul>
+
+                    <h2>Base64 is encoding, not encryption</h2>
+
+                    <p>
+                        This is the most important point, and a common
+                        beginner mistake. Encryption uses a secret key, and
+                        without the key the data cannot be read. Base64 has
+                        no key and no secret. The method is public, and
+                        anyone can decode it instantly, with a tool like our
+                        <a href="../tools/base64.html">Base64 Encoder and Decoder</a>.
+                    </p>
+
+                    <p>Real mistakes that come from confusing the two:</p>
+
+                    <ul>
+                        <li>Storing passwords as Base64. This is the same as storing them in plain text. Real systems should use a dedicated password-hashing method such as Argon2id, bcrypt or scrypt.</li>
+                        <li>Putting an API key or secret in a website's code as Base64 and thinking it is hidden. Anyone who opens the page can read it.</li>
+                        <li>Using Base64 to "protect" personal data before sending it. It does not stop anyone from reading it.</li>
+                    </ul>
+
+                    <h2>Why security analysts decode Base64</h2>
+
+                    <p>
+                        Attackers often wrap harmful commands or scripts in
+                        Base64 so they are harder to spot at a glance. For
+                        example, Windows PowerShell has an option that takes
+                        a command as Base64 text. Analysts decode such
+                        strings to see what they really do.
+                    </p>
+
+                    <div class="notice">
+                        <strong>Be careful.</strong> Decoding a suspicious string only
+                        shows you what it says. Never run the decoded
+                        result. Read it, and look at it somewhere safe.
+                    </div>
+
+                    <p>
+                        One technical note: our tool reads the result as
+                        standard text (UTF-8). PowerShell commands use a
+                        different text format, so they may look garbled in it.
+                        Analysts use specialist tools for those.
+                    </p>
+
+                    <h2>Using Base64 in code</h2>
+
+                    <p>In JavaScript, <code>btoa()</code> and <code>atob()</code> encode and decode simple text:</p>
+
+<pre><code>btoa("hello");        // "aGVsbG8="
+atob("aGVsbG8=");     // "hello"</code></pre>
+
+                    <p>
+                        These functions fail on characters outside the basic
+                        Latin set, such as emoji, and do not use UTF-8 for
+                        accented letters. For general text, convert it to
+                        UTF-8 bytes first:
+                    </p>
+
+<pre><code>const bytes = new TextEncoder().encode("héllo");
+let binary = "";
+bytes.forEach(b =&gt; binary += String.fromCharCode(b));
+const encoded = btoa(binary);   // "aMOpbGxv"</code></pre>
+
+                    <p>In Python, the <code>base64</code> module does it:</p>
+
+<pre><code>import base64
+
+encoded = base64.b64encode("hello".encode("utf-8")).decode("ascii")
+decoded = base64.b64decode(encoded).decode("utf-8")</code></pre>
+
+                    <h2>Try it yourself</h2>
+
+                    <p>
+                        Open the
+                        <a href="../tools/base64.html">Base64 Encoder and Decoder</a>,
+                        encode the word <code>hello</code>, then decode
+                        <code>dXNlcjpwYXNz</code> and see what you find. The
+                        tool runs in your browser, and nothing you type is
+                        uploaded.
+                    </p>
+
+                    <p class="article-cta">
+                        <a class="button primary-button" href="../tools/base64.html">
+                            Open the Base64 tool
+                        </a>
+                    </p>
+
+                    <h2>Summary</h2>
+
+                    <ul>
+                        <li>Base64 rewrites data as safe text using 64 characters.</li>
+                        <li>It makes data about one third larger.</li>
+                        <li>It is used in email, web headers, tokens and config files.</li>
+                        <li>It is not encryption. Anyone can decode it.</li>
+                        <li>Never use it to protect passwords or secrets.</li>
+                    </ul>
+
+                    <h2>Further reading</h2>
+
+                    <ul>
+                        <li><a href="https://www.rfc-editor.org/rfc/rfc4648">RFC 4648: The Base16, Base32 and Base64 Data Encodings</a></li>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/btoa">MDN Web Docs: btoa()</a></li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="container footer-content">
+
+            <div>
+
+                <h3>
+                    ToolSphere
+                </h3>
+
+                <p>
+                    Technology, tools and practical
+                    learning resources.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Explore
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../tools.html">
+                        Tools
+                    </a>
+
+                    <a href="../index.html#articles">
+                        Articles
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Learning
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../cybersecurity.html">
+                        Cybersecurity
+                    </a>
+
+                    <a href="../programming.html">
+                        Programming
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../about.html">
+                        About
+                    </a>
+
+                    <a href="../contact.html">
+                        Contact
+                    </a>
+
+                    <a href="../privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="../terms.html">
+                        Terms of Use
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 ToolSphere. All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

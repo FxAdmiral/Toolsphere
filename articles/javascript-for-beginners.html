@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="A beginner&#x27;s guide to JavaScript: variables, functions, decisions, loops and how to change a web page when a user clicks.">
+
+    <title>JavaScript for Beginners: Make Your Web Pages Interactive | ToolSphere</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="container nav-container">
+
+            <a href="../index.html" class="logo">
+                Tool<span>Sphere</span>
+            </a>
+
+            <nav class="navigation" aria-label="Main navigation">
+
+                <a href="../index.html">Home</a>
+
+                <a href="../tools.html">Tools</a>
+
+                <a href="../cybersecurity.html">Cybersecurity</a>
+
+                <a href="../programming.html" aria-current="page">Programming</a>
+
+                <a href="../index.html#articles">Technology</a>
+
+                <a href="../contact.html">Contact</a>
+
+            </nav>
+
+            <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+
+        <section class="tool-page">
+
+            <div class="container">
+
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../index.html">Home</a> &rsaquo;
+                    <a href="../programming.html">Programming</a> &rsaquo;
+                    <span>JavaScript</span>
+                </nav>
+
+                <div class="tool-intro">
+
+                    <p class="section-label">
+                        PROGRAMMING • GUIDE 2 OF 6
+                    </p>
+
+                    <h1>
+                        JavaScript for Beginners: Make Your Web Pages Interactive
+                    </h1>
+
+                    <p>
+                        Learn the core ideas of JavaScript and make your first page react to clicks.
+                    </p>
+
+                </div>
+
+
+                <div class="content-card article">
+
+
+
+
+                    <div id="panel-guide" class="tab-panel">
+
+                        <p class="meta">
+                            Published 25 October 2026 • About 5 minutes to read
+                        </p>
+
+                        <div class="toc"><p class="toc-title">In this guide</p><ol><li><a href="#what-is-javascript">What is JavaScript?</a></li><li><a href="#running-your-first-javascript">Running your first JavaScript</a></li><li><a href="#variables-and-data-types">Variables and data types</a></li><li><a href="#functions">Functions</a></li><li><a href="#making-decisions-and-repeating-work">Making decisions and repeating work</a></li><li><a href="#changing-the-page-the-dom">Changing the page: the DOM</a></li><li><a href="#a-safety-habit-textcontent-not-innerhtml">A safety habit: textContent, not innerHTML</a></li><li><a href="#handling-errors">Handling errors</a></li><li><a href="#a-real-example-choosing-random-characters">A real example: choosing random characters</a></li><li><a href="#common-beginner-mistakes">Common beginner mistakes</a></li><li><a href="#practice-project-a-word-counter">Practice project: a word counter</a></li><li><a href="#summary">Summary</a></li><li><a href="#further-reading">Further reading</a></li></ol></div>
+
+
+<h2 id="what-is-javascript">What is JavaScript?</h2>
+
+<p>
+    JavaScript is the programming language of the web browser. HTML gives a
+    page its structure, CSS gives it style, and JavaScript gives it
+    <strong>behaviour</strong>: reacting to clicks, checking a form, updating
+    text without reloading the page. Every tool on ToolSphere, such as the
+    Password Generator and the Hash Generator, is JavaScript running in your
+    browser.
+</p>
+
+<p>
+    JavaScript can also run outside the browser, on servers, using Node.js.
+    That is the topic of a later guide.
+</p>
+
+<h2 id="running-your-first-javascript">Running your first JavaScript</h2>
+
+<p>
+    The fastest way to try it is the browser console. Press F12, open the
+    <strong>Console</strong> tab, type the line below and press Enter:
+</p>
+
+<pre><code>console.log("Hello, JavaScript!");</code></pre>
+
+<p>
+    To use JavaScript inside a page, put it in a file such as
+    <code>script.js</code> and load it just before the closing
+    <code>&lt;/body&gt;</code> tag with
+    <code>&lt;script src="script.js"&gt;&lt;/script&gt;</code>. Loading it at
+    the end means the page elements exist before your code looks for them.
+</p>
+
+<h2 id="variables-and-data-types">Variables and data types</h2>
+
+<p>A variable is a named box that holds a value.</p>
+
+<pre><code>const name = "Ada";                               // text (a string)
+let age = 25;                                       // a number
+let isStudent = true;                               // true or false (a boolean)
+const skills = ["HTML", "CSS", "JavaScript"];       // a list (an array)
+const user = { name: "Ada", age: 25 };              // an object
+
+console.log(name, age, skills[0], user.name);</code></pre>
+
+<ul>
+    <li>Use <code>const</code> for values that will not be reassigned, and <code>let</code> for values that will change. Prefer <code>const</code> by default.</li>
+    <li>Avoid the older <code>var</code> in new code.</li>
+    <li>The main types are strings (text), numbers, booleans (true or false), arrays (ordered lists) and objects (named properties).</li>
+</ul>
+
+<h2 id="functions">Functions</h2>
+
+<p>
+    A function is a reusable set of steps. It can take inputs
+    (<strong>parameters</strong>) and give back a result
+    (<strong>return value</strong>).
+</p>
+
+<pre><code>function greet(person) {
+    return "Hello, " + person + "!";
+}
+
+console.log(greet("Ada"));          // Hello, Ada!
+
+const double = (n) =&gt; n * 2;        // an arrow function
+console.log(double(4));             // 8</code></pre>
+
+<h2 id="making-decisions-and-repeating-work">Making decisions and repeating work</h2>
+
+<pre><code>const score = 72;
+
+if (score &gt;= 70) {
+    console.log("Pass");
+} else {
+    console.log("Try again");
+}
+
+for (let i = 1; i &lt;= 3; i++) {
+    console.log("Round " + i);
+}
+
+const doubled = [1, 2, 3].map((n) =&gt; n * 2);
+console.log(doubled);               // [2, 4, 6]</code></pre>
+
+<ul>
+    <li><code>if</code> and <code>else</code> choose between paths.</li>
+    <li>A <code>for</code> loop repeats code a set number of times.</li>
+    <li>Array methods like <code>map</code> build a new list by applying a function to each item.</li>
+</ul>
+
+<h2 id="changing-the-page-the-dom">Changing the page: the DOM</h2>
+
+<p>
+    The browser turns your HTML into a tree of objects called the
+    <strong>DOM</strong> (Document Object Model). JavaScript can find an
+    element in that tree, listen for something the user does (an
+    <strong>event</strong>), and change the page in response.
+</p>
+
+<p>Add this button to your HTML:</p>
+
+<pre><code>&lt;button id="countButton" type="button"&gt;Clicked 0 times&lt;/button&gt;
+
+&lt;script src="script.js"&gt;&lt;/script&gt;</code></pre>
+
+<p>And this to <code>script.js</code>:</p>
+
+<pre><code>const button = document.getElementById("countButton");
+let count = 0;
+
+if (button) {
+    button.addEventListener("click", function () {
+        count++;
+        button.textContent = "Clicked " + count + " times";
+    });
+}</code></pre>
+
+<p>
+    The three steps are the pattern behind almost every interactive feature:
+    find the element, listen for an event, then update the page. Notice the
+    <code>if (button)</code> check. ToolSphere uses one shared script on many
+    pages, so each feature first checks that its own elements exist. Without
+    that check, a missing element would cause an error on pages that do not
+    have it.
+</p>
+
+<h2 id="a-safety-habit-textcontent-not-innerhtml">A safety habit: textContent, not innerHTML</h2>
+
+<p>
+    When you show text that a user typed, use <code>textContent</code>.
+    Inserting user text with <code>innerHTML</code> lets the browser treat it
+    as HTML, which can allow an attack called cross-site scripting (XSS).
+</p>
+
+<pre><code>output.textContent = userText;     // safe: shown as plain text
+
+// output.innerHTML = userText;    // risky if userText comes from a user</code></pre>
+
+<h2 id="handling-errors">Handling errors</h2>
+
+<p>
+    Things go wrong: invalid input, a failed request, a missing element.
+    <code>try</code> and <code>catch</code> let your program respond calmly
+    instead of stopping.
+</p>
+
+<pre><code>try {
+    const data = JSON.parse('{"ok": true}');
+    console.log(data.ok);           // true
+} catch (error) {
+    console.log("That was not valid JSON.");
+}</code></pre>
+
+<h2 id="a-real-example-choosing-random-characters">A real example: choosing random characters</h2>
+
+<p>
+    ToolSphere's <a href="../tools/password-generator.html">Password Generator</a>
+    picks characters with <code>crypto.getRandomValues()</code> rather than
+    <code>Math.random()</code>. <code>Math.random()</code> is fine for games
+    and animations but is not designed for security. When a task involves
+    passwords or keys, use the browser's cryptographic functions. Choosing the
+    right tool for the job is part of programming well.
+</p>
+
+<h2 id="common-beginner-mistakes">Common beginner mistakes</h2>
+
+<ul>
+    <li><strong>Using <code>=</code> instead of <code>===</code>.</strong> A single <code>=</code> assigns a value. Use <code>===</code> to compare.</li>
+    <li><strong>"Cannot read properties of null".</strong> Your code looked for an element that does not exist, usually because of a typo in the id or because the script loaded before the element. Check the spelling and the script position.</li>
+    <li><strong>Ignoring the console.</strong> Red error messages tell you the file and line number. Read them first.</li>
+    <li><strong>Copying code without understanding it.</strong> Change one thing at a time and see what happens.</li>
+</ul>
+
+<h2 id="practice-project-a-word-counter">Practice project: a word counter</h2>
+
+<p>Build a page with a text box and a line that shows the number of words and characters as the user types. You will need:</p>
+
+<ul>
+    <li>A <code>textarea</code> and a paragraph to show the result.</li>
+    <li>An <code>input</code> event listener on the textarea.</li>
+    <li>The string methods <code>trim()</code> and <code>split()</code>, and <code>length</code>.</li>
+    <li>Handling for an empty box, so it shows zero words instead of one.</li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+    <li>JavaScript adds behaviour to web pages.</li>
+    <li>Use <code>const</code> and <code>let</code> for variables, and functions to reuse code.</li>
+    <li>The DOM lets your code find elements, listen for events and change the page.</li>
+    <li>Use <code>textContent</code> for user text and <code>try/catch</code> for risky steps.</li>
+    <li>Read console errors, and change one thing at a time.</li>
+</ul>
+
+<h2 id="further-reading">Further reading</h2>
+
+<ul>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">MDN Web Docs: JavaScript</a></li>
+</ul>
+
+
+                        <div class="related"><strong>Related on ToolSphere:</strong> <a href="../tools/password-generator.html">Password Generator</a> and <a href="../tools/password-strength.html">Password Strength Checker</a></div>
+
+                        <div class="path-nav">
+                            <a class="prev" href="html-and-css-for-beginners.html"><span>PREVIOUS GUIDE</span>HTML &amp; CSS</a>
+                            <a class="next" href="git-and-github-for-beginners.html"><span>NEXT GUIDE</span>Git &amp; GitHub</a>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="container footer-content">
+
+            <div>
+
+                <h3>
+                    ToolSphere
+                </h3>
+
+                <p>
+                    Technology, tools and practical
+                    learning resources.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Explore
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../tools.html">
+                        Tools
+                    </a>
+
+                    <a href="../index.html#articles">
+                        Articles
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Learning
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../cybersecurity.html">
+                        Cybersecurity
+                    </a>
+
+                    <a href="../programming.html">
+                        Programming
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../about.html">
+                        About
+                    </a>
+
+                    <a href="../contact.html">
+                        Contact
+                    </a>
+
+                    <a href="../privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="../terms.html">
+                        Terms of Use
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 ToolSphere. All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Learn what a database is, the difference between SQL and document databases, basic SQL commands and how to keep data secure.">
+
+    <title>Databases for Beginners: Tables, SQL and Keeping Data Safe | ToolSphere</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="container nav-container">
+
+            <a href="../index.html" class="logo">
+                Tool<span>Sphere</span>
+            </a>
+
+            <nav class="navigation" aria-label="Main navigation">
+
+                <a href="../index.html">Home</a>
+
+                <a href="../tools.html">Tools</a>
+
+                <a href="../cybersecurity.html">Cybersecurity</a>
+
+                <a href="../programming.html" aria-current="page">Programming</a>
+
+                <a href="../index.html#articles">Technology</a>
+
+                <a href="../contact.html">Contact</a>
+
+            </nav>
+
+            <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+
+        <section class="tool-page">
+
+            <div class="container">
+
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../index.html">Home</a> &rsaquo;
+                    <a href="../programming.html">Programming</a> &rsaquo;
+                    <span>Databases</span>
+                </nav>
+
+                <div class="tool-intro">
+
+                    <p class="section-label">
+                        PROGRAMMING • GUIDE 6 OF 6
+                    </p>
+
+                    <h1>
+                        Databases for Beginners: Tables, SQL and Keeping Data Safe
+                    </h1>
+
+                    <p>
+                        Learn how applications store data, write your first SQL, and protect what you store.
+                    </p>
+
+                </div>
+
+
+                <div class="content-card article">
+
+
+
+
+                    <div id="panel-guide" class="tab-panel">
+
+                        <p class="meta">
+                            Published 25 October 2026 • About 5 minutes to read
+                        </p>
+
+                        <div class="toc"><p class="toc-title">In this guide</p><ol><li><a href="#what-is-a-database">What is a database?</a></li><li><a href="#the-two-main-families">The two main families</a></li><li><a href="#tables-rows-columns-and-keys">Tables, rows, columns and keys</a></li><li><a href="#sql-basics">SQL basics</a></li><li><a href="#relationships-and-join">Relationships and JOIN</a></li><li><a href="#a-quick-look-at-a-document-database">A quick look at a document database</a></li><li><a href="#keeping-data-safe">Keeping data safe</a></li><li><a href="#which-one-should-you-choose">Which one should you choose?</a></li><li><a href="#where-databases-fit-in-toolsphere">Where databases fit in ToolSphere</a></li><li><a href="#common-beginner-mistakes">Common beginner mistakes</a></li><li><a href="#practice-project">Practice project</a></li><li><a href="#summary">Summary</a></li><li><a href="#further-reading">Further reading</a></li></ol></div>
+
+
+<h2 id="what-is-a-database">What is a database?</h2>
+
+<p>
+    A database is an organised collection of data that a program can store,
+    search and update quickly. You could keep data in plain files, but a
+    database handles many users at once, finds records fast, keeps data
+    consistent and protects it from being half-saved if something crashes.
+</p>
+
+<p>
+    Almost every application uses one: your account details, your messages, a
+    shop's products, a blog's articles.
+</p>
+
+<h2 id="the-two-main-families">The two main families</h2>
+
+<ul>
+    <li><strong>Relational (SQL) databases</strong> store data in <strong>tables</strong> made of rows and columns, a bit like spreadsheets that can be linked together. Examples: PostgreSQL, MySQL and SQLite.</li>
+    <li><strong>Document databases</strong> store flexible, JSON-like <strong>documents</strong>. Example: MongoDB.</li>
+</ul>
+
+<p>
+    Neither is better in every case. Relational databases suit structured data
+    with clear relationships, such as customers and orders. Document databases
+    suit data whose shape varies or changes often.
+</p>
+
+<h2 id="tables-rows-columns-and-keys">Tables, rows, columns and keys</h2>
+
+<ul>
+    <li>A <strong>table</strong> holds one kind of thing, such as <code>users</code>.</li>
+    <li>A <strong>column</strong> is one property, such as <code>email</code>.</li>
+    <li>A <strong>row</strong> is one record, such as one user.</li>
+    <li>A <strong>primary key</strong> is a column whose value is unique for every row, usually an <code>id</code>.</li>
+    <li>A <strong>foreign key</strong> is a column that points to a row in another table, which is how tables are linked.</li>
+</ul>
+
+<h2 id="sql-basics">SQL basics</h2>
+
+<p>
+    <strong>SQL</strong> (Structured Query Language) is the language for
+    talking to relational databases. These examples use SQLite style.
+</p>
+
+<pre><code>CREATE TABLE users (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE
+);
+
+INSERT INTO users (name, email) VALUES ('Ada', 'ada@example.com');
+INSERT INTO users (name, email) VALUES ('Tunde', 'tunde@example.com');
+
+SELECT id, name FROM users WHERE name = 'Ada';
+
+UPDATE users SET email = 'ada.new@example.com' WHERE id = 1;
+
+DELETE FROM users WHERE id = 2;</code></pre>
+
+<ul>
+    <li><code>CREATE TABLE</code> defines a table and its columns.</li>
+    <li><code>INSERT</code> adds a row.</li>
+    <li><code>SELECT</code> reads rows, and <code>WHERE</code> filters them.</li>
+    <li><code>UPDATE</code> changes rows. <code>DELETE</code> removes them.</li>
+</ul>
+
+<div class="notice">
+    <strong>Always use <code>WHERE</code> with <code>UPDATE</code> and <code>DELETE</code>.</strong>
+    Without it, the command changes or deletes every row in the table.
+</div>
+
+<p>
+    Small details of SQL differ between database systems. For example, the way
+    to make an automatically numbered id is not the same in PostgreSQL as in
+    SQLite. The core ideas stay the same.
+</p>
+
+<h2 id="relationships-and-join">Relationships and JOIN</h2>
+
+<p>
+    A user can have many orders. Instead of copying the user's details into
+    every order, store the user's id in the order, and use a <code>JOIN</code>
+    to combine them when you read the data:
+</p>
+
+<pre><code>CREATE TABLE orders (
+    id INTEGER PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    item TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+INSERT INTO orders (user_id, item) VALUES (1, 'Notebook');
+
+SELECT users.name, orders.item
+FROM orders
+JOIN users ON users.id = orders.user_id;</code></pre>
+
+<h2 id="a-quick-look-at-a-document-database">A quick look at a document database</h2>
+
+<p>The same kind of information as one document:</p>
+
+<pre><code>{
+  "_id": "u1",
+  "name": "Ada",
+  "skills": ["HTML", "CSS"],
+  "address": { "city": "Lagos" }
+}</code></pre>
+
+<p>
+    Related data, such as skills and address, can sit inside the document.
+    That is convenient when you usually read it all together.
+</p>
+
+<h2 id="keeping-data-safe">Keeping data safe</h2>
+
+<ul>
+    <li><strong>Prevent SQL injection.</strong> Never build a query by joining user text into it. Use <strong>parameterised queries</strong>, where the database receives the value separately and treats it only as data.</li>
+</ul>
+
+<pre><code>// UNSAFE: user text is glued into the query
+db.query("SELECT * FROM users WHERE email = '" + email + "'");
+
+// SAFE: the value is passed separately as a parameter
+db.query("SELECT * FROM users WHERE email = ?", [email]);</code></pre>
+
+<p>(The placeholder style differs between libraries. Some use <code>?</code> and others use <code>$1</code>.)</p>
+
+<ul>
+    <li><strong>Never store plain passwords.</strong> Store a hash made by a dedicated password-hashing method such as Argon2id, bcrypt or scrypt. A plain SHA-256 hash from our <a href="../tools/hash-generator.html">Hash Generator</a> is not enough for passwords.</li>
+    <li><strong>Keep credentials out of your code.</strong> Put the database password in an environment variable, keep the <code>.env</code> file out of Git, and replace the password at once if it is ever exposed.</li>
+    <li><strong>Give each program only the access it needs.</strong> A website that only reads data should not be able to delete tables.</li>
+    <li><strong>Make backups</strong>, and test that you can restore them.</li>
+</ul>
+
+<h2 id="which-one-should-you-choose">Which one should you choose?</h2>
+
+<ul>
+    <li><strong>SQLite:</strong> a whole database in a single file with no server to run. Excellent for learning and small projects.</li>
+    <li><strong>PostgreSQL:</strong> a powerful, widely used relational database for serious applications.</li>
+    <li><strong>MongoDB:</strong> a good fit when your data is naturally document-shaped.</li>
+</ul>
+
+<p>
+    Pick the simplest option that fits your data. You can always move later,
+    though moving is work.
+</p>
+
+<h2 id="where-databases-fit-in-toolsphere">Where databases fit in ToolSphere</h2>
+
+<p>
+    ToolSphere's current tools need no database, because they run in your
+    browser and store nothing. A database will make sense when we add features
+    that must remember things, such as saved contact messages or article
+    management.
+</p>
+
+<h2 id="common-beginner-mistakes">Common beginner mistakes</h2>
+
+<ul>
+    <li>Running <code>UPDATE</code> or <code>DELETE</code> without <code>WHERE</code>.</li>
+    <li>Storing several values in one column, such as a comma-separated list, instead of using a related table.</li>
+    <li>Trusting user input in a query.</li>
+    <li>Storing passwords or secrets in plain text.</li>
+    <li>Having no backup.</li>
+</ul>
+
+<h2 id="practice-project">Practice project</h2>
+
+<p>
+    Install SQLite, or use the <code>sqlite3</code> command if your system
+    already has it. Run the SQL from this guide, then add a
+    <code>products</code> table with a name and a price, insert five rows, and
+    write queries to find products under a chosen price and to list them from
+    the cheapest to the most expensive (hint: <code>ORDER BY</code>).
+</p>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+    <li>A database stores data so programs can find and update it reliably.</li>
+    <li>Relational databases use tables and SQL. Document databases use flexible documents.</li>
+    <li>Primary keys identify rows, and foreign keys link tables.</li>
+    <li>Use parameterised queries, hash passwords properly and keep credentials secret.</li>
+    <li>Choose the simplest database that fits.</li>
+</ul>
+
+<h2 id="further-reading">Further reading</h2>
+
+<ul>
+    <li><a href="https://www.sqlite.org/docs.html">SQLite documentation</a></li>
+    <li><a href="https://www.postgresql.org/docs/">PostgreSQL documentation</a></li>
+    <li><a href="https://www.mongodb.com/docs/">MongoDB documentation</a></li>
+</ul>
+
+
+                        <div class="related"><strong>Related on ToolSphere:</strong> <a href="../tools/hash-generator.html">Hash Generator</a></div>
+
+                        <div class="path-nav">
+                            <a class="prev" href="what-is-a-rest-api.html"><span>PREVIOUS GUIDE</span>REST APIs</a>
+                            <a class="next" href="../programming.html"><span>YOU FINISHED THE PATH</span>Back to the learning path</a>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="container footer-content">
+
+            <div>
+
+                <h3>
+                    ToolSphere
+                </h3>
+
+                <p>
+                    Technology, tools and practical
+                    learning resources.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Explore
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../tools.html">
+                        Tools
+                    </a>
+
+                    <a href="../index.html#articles">
+                        Articles
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Learning
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../cybersecurity.html">
+                        Cybersecurity
+                    </a>
+
+                    <a href="../programming.html">
+                        Programming
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../about.html">
+                        About
+                    </a>
+
+                    <a href="../contact.html">
+                        Contact
+                    </a>
+
+                    <a href="../privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="../terms.html">
+                        Terms of Use
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 ToolSphere. All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

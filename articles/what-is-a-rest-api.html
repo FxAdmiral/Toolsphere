@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Learn what an API is, how REST APIs work, what HTTP methods and status codes mean, and how to call an API safely.">
+
+    <title>What Is a REST API? A Beginner's Guide | ToolSphere</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="container nav-container">
+
+            <a href="../index.html" class="logo">
+                Tool<span>Sphere</span>
+            </a>
+
+            <nav class="navigation" aria-label="Main navigation">
+
+                <a href="../index.html">Home</a>
+
+                <a href="../tools.html">Tools</a>
+
+                <a href="../cybersecurity.html">Cybersecurity</a>
+
+                <a href="../programming.html" aria-current="page">Programming</a>
+
+                <a href="../index.html#articles">Technology</a>
+
+                <a href="../contact.html">Contact</a>
+
+            </nav>
+
+            <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+
+        <section class="tool-page">
+
+            <div class="container">
+
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../index.html">Home</a> &rsaquo;
+                    <a href="../programming.html">Programming</a> &rsaquo;
+                    <span>REST APIs</span>
+                </nav>
+
+                <div class="tool-intro">
+
+                    <p class="section-label">
+                        PROGRAMMING • GUIDE 5 OF 6
+                    </p>
+
+                    <h1>
+                        What Is a REST API? A Beginner's Guide
+                    </h1>
+
+                    <p>
+                        Understand how programs talk to each other over the web, in plain language.
+                    </p>
+
+                </div>
+
+
+                <div class="content-card article">
+
+
+
+
+                    <div id="panel-guide" class="tab-panel">
+
+                        <p class="meta">
+                            Published 25 October 2026 • About 6 minutes to read
+                        </p>
+
+                        <div class="toc"><p class="toc-title">In this guide</p><ol><li><a href="#what-is-an-api">What is an API?</a></li><li><a href="#clients-and-servers">Clients and servers</a></li><li><a href="#what-is-rest">What is REST?</a></li><li><a href="#anatomy-of-a-request-and-a-response">Anatomy of a request and a response</a></li><li><a href="#http-methods">HTTP methods</a></li><li><a href="#status-codes">Status codes</a></li><li><a href="#json-in-one-minute">JSON in one minute</a></li><li><a href="#designing-clean-urls">Designing clean URLs</a></li><li><a href="#calling-an-api-from-javascript">Calling an API from JavaScript</a></li><li><a href="#api-security-basics">API security basics</a></li><li><a href="#common-beginner-mistakes">Common beginner mistakes</a></li><li><a href="#practice-project">Practice project</a></li><li><a href="#summary">Summary</a></li><li><a href="#further-reading">Further reading</a></li></ol></div>
+
+
+<h2 id="what-is-an-api">What is an API?</h2>
+
+<p>
+    API stands for Application Programming Interface. It is a set of rules
+    that lets one program ask another program for something. Think of a
+    restaurant. You do not walk into the kitchen. You read the menu, give your
+    order to a waiter, and the waiter brings back your food. The API is the
+    waiter and the menu: it defines what you can ask for and how.
+</p>
+
+<p>
+    A <strong>web API</strong> does this over the internet using HTTP, the same
+    protocol your browser uses to load pages. Weather apps, payment buttons and
+    "sign in with" buttons all work by calling web APIs.
+</p>
+
+<h2 id="clients-and-servers">Clients and servers</h2>
+
+<p>
+    The program that asks is the <strong>client</strong>, such as a browser or a
+    phone app. The program that answers is the <strong>server</strong>. The
+    client sends a <strong>request</strong>, and the server returns a
+    <strong>response</strong>. Every web API follows this pattern.
+</p>
+
+<h2 id="what-is-rest">What is REST?</h2>
+
+<p>
+    <strong>REST</strong> (Representational State Transfer) is a style for
+    designing web APIs, described by Roy Fielding in his doctoral dissertation
+    in 2000. When people say "REST API" in everyday use, they usually mean an
+    API with these features:
+</p>
+
+<ul>
+    <li>Data is organised as <strong>resources</strong>, such as users or orders, each with its own URL.</li>
+    <li>The client uses standard <strong>HTTP methods</strong> like GET and POST to act on them.</li>
+    <li>The server is <strong>stateless</strong>: each request carries everything needed to handle it, and the server does not remember earlier requests.</li>
+    <li>Data is usually exchanged as <strong>JSON</strong>.</li>
+</ul>
+
+<p>
+    In practice, APIs follow these ideas to different degrees, so treat REST as
+    a set of good conventions more than a strict rulebook.
+</p>
+
+<h2 id="anatomy-of-a-request-and-a-response">Anatomy of a request and a response</h2>
+
+<p>A request has a method, a URL, headers and sometimes a body:</p>
+
+<pre><code>GET /users/42 HTTP/1.1
+Host: api.example.com
+Accept: application/json
+Authorization: Bearer YOUR_TOKEN</code></pre>
+
+<p>The server replies with a status code, headers and a body:</p>
+
+<pre><code>HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "id": 42,
+  "name": "Ada",
+  "email": "ada@example.com"
+}</code></pre>
+
+<h2 id="http-methods">HTTP methods</h2>
+
+<ul>
+    <li><strong>GET</strong> reads data. It should not change anything.</li>
+    <li><strong>POST</strong> creates something new.</li>
+    <li><strong>PUT</strong> replaces something completely.</li>
+    <li><strong>PATCH</strong> changes part of something.</li>
+    <li><strong>DELETE</strong> removes something.</li>
+</ul>
+
+<h2 id="status-codes">Status codes</h2>
+
+<p>The first digit tells you the outcome:</p>
+
+<ul>
+    <li><strong>2xx: success.</strong> <code>200 OK</code>, <code>201 Created</code>, <code>204 No Content</code>.</li>
+    <li><strong>3xx: redirection.</strong> The thing you want is somewhere else.</li>
+    <li><strong>4xx: the client made a mistake.</strong> <code>400 Bad Request</code>, <code>401 Unauthorized</code> (you are not signed in), <code>403 Forbidden</code> (you are signed in but not allowed), <code>404 Not Found</code>, <code>429 Too Many Requests</code>.</li>
+    <li><strong>5xx: the server failed.</strong> <code>500 Internal Server Error</code>.</li>
+</ul>
+
+<h2 id="json-in-one-minute">JSON in one minute</h2>
+
+<p>
+    JSON (JavaScript Object Notation) is a simple text format for data. It
+    supports strings, numbers, true and false, null, lists and nested objects:
+</p>
+
+<pre><code>{
+  "name": "Ada",
+  "age": 25,
+  "skills": ["HTML", "CSS"],
+  "active": true,
+  "address": null
+}</code></pre>
+
+<p>
+    JSON needs double quotes around keys and strings, and does not allow
+    trailing commas. Those two rules cause most beginner JSON errors. You can
+    check your JSON with our
+    <a href="../tools/json-formatter.html">JSON Formatter and Validator</a>,
+    which runs in your browser, or with a free online validator such as
+    <a href="https://jsonlint.com/">JSONLint</a>. Never paste real passwords,
+    keys or private data into any online tool. Use made-up sample data instead.
+</p>
+
+<h2 id="designing-clean-urls">Designing clean URLs</h2>
+
+<ul>
+    <li>Use <strong>nouns</strong>, not verbs, and plural names for collections: <code>/users</code>, not <code>/getUsers</code>.</li>
+    <li>Let the method say the action. <code>DELETE /users/42</code> is clearer than <code>/deleteUser?id=42</code>.</li>
+    <li>Use query strings for filtering and paging.</li>
+</ul>
+
+<pre><code>GET     /users            list users
+GET     /users/42         get one user
+POST    /users            create a user
+PATCH   /users/42         update part of a user
+DELETE  /users/42         delete a user
+GET     /users?status=active&amp;page=2   filter and page through results</code></pre>
+
+<h2 id="calling-an-api-from-javascript">Calling an API from JavaScript</h2>
+
+<p>
+    The browser's built-in <code>fetch</code> function sends requests. The
+    address below is a placeholder, so replace it with a real API when you
+    practise.
+</p>
+
+<pre><code>async function loadUser(id) {
+    try {
+        const response = await fetch("https://api.example.com/users/" + id);
+
+        if (!response.ok) {
+            throw new Error("Request failed with status " + response.status);
+        }
+
+        const user = await response.json();
+        console.log(user.name);
+    } catch (error) {
+        console.log("Something went wrong:", error.message);
+    }
+}
+
+loadUser(42);</code></pre>
+
+<p>
+    Notice the check of <code>response.ok</code>. A <code>404</code> or
+    <code>500</code> does not make <code>fetch</code> throw an error by
+    itself, so you must check. You can also try an API from the terminal with
+    <code>curl</code>:
+</p>
+
+<pre><code>curl -H "Accept: application/json" https://api.example.com/users/42</code></pre>
+
+<h2 id="api-security-basics">API security basics</h2>
+
+<ul>
+    <li><strong>Always use HTTPS</strong>, so requests cannot be read or changed on the way.</li>
+    <li><strong>Authentication</strong> proves who you are, and <strong>authorisation</strong> decides what you may do. They are different.</li>
+    <li><strong>Never put secret keys in front-end code.</strong> Anyone can view a page's source. Secrets belong on the server.</li>
+    <li><strong>Encoding is not protection.</strong> Basic authentication sends <code>username:password</code> as Base64, which anyone can reverse. Read <a href="../articles/what-is-base64.html">What Is Base64, and Why Isn't It Encryption?</a> and try the <a href="../tools/base64.html">Base64 tool</a>.</li>
+    <li><strong>Validate every input</strong> on the server, and limit how often a client can call the API.</li>
+</ul>
+
+<h2 id="common-beginner-mistakes">Common beginner mistakes</h2>
+
+<ul>
+    <li><strong>Treating 401 and 403 as the same.</strong> 401 means "who are you?" and 403 means "I know who you are, and the answer is no".</li>
+    <li><strong>Forgetting the content type.</strong> When sending JSON, set the <code>Content-Type: application/json</code> header.</li>
+    <li><strong>Ignoring errors.</strong> Always handle failed requests, slow responses and unexpected data.</li>
+    <li><strong>CORS errors in the browser.</strong> Browsers block a page from reading another site's API unless that API allows it. The fix is on the server, not in your page.</li>
+</ul>
+
+<h2 id="practice-project">Practice project</h2>
+
+<p>
+    Build a small page with a button that calls a free public API of your choice,
+    checks <code>response.ok</code>, and shows one field from the JSON result
+    with <code>textContent</code>. Add a friendly message for when the request fails.
+    Then, using what you learned in the Node.js guide, build your own tiny API
+    that returns a list of three items.
+</p>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+    <li>An API lets one program ask another for data or actions.</li>
+    <li>REST APIs organise data as resources with URLs, and use HTTP methods.</li>
+    <li>Status codes tell you whether a request worked: 2xx success, 4xx client error, 5xx server error.</li>
+    <li>JSON is the usual data format.</li>
+    <li>Use HTTPS, keep secrets on the server and validate input.</li>
+</ul>
+
+<h2 id="further-reading">Further reading</h2>
+
+<ul>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP">MDN Web Docs: HTTP</a></li>
+    <li><a href="https://www.rfc-editor.org/rfc/rfc9110">RFC 9110: HTTP Semantics</a></li>
+    <li><a href="https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">Roy Fielding: Representational State Transfer (REST)</a></li>
+</ul>
+
+
+                        <div class="related"><strong>Related on ToolSphere:</strong> <a href="../tools/json-formatter.html">JSON Formatter and Validator</a>, <a href="../tools/base64.html">Base64 Encoder and Decoder</a> and the guide <a href="../articles/what-is-base64.html">What Is Base64, and Why Isn't It Encryption?</a></div>
+
+                        <div class="path-nav">
+                            <a class="prev" href="nodejs-for-beginners.html"><span>PREVIOUS GUIDE</span>Node.js</a>
+                            <a class="next" href="databases-for-beginners.html"><span>NEXT GUIDE</span>Databases</a>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="container footer-content">
+
+            <div>
+
+                <h3>
+                    ToolSphere
+                </h3>
+
+                <p>
+                    Technology, tools and practical
+                    learning resources.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Explore
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../tools.html">
+                        Tools
+                    </a>
+
+                    <a href="../index.html#articles">
+                        Articles
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Learning
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../cybersecurity.html">
+                        Cybersecurity
+                    </a>
+
+                    <a href="../programming.html">
+                        Programming
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../about.html">
+                        About
+                    </a>
+
+                    <a href="../contact.html">
+                        Contact
+                    </a>
+
+                    <a href="../privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="../terms.html">
+                        Terms of Use
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 ToolSphere. All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

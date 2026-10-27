@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Set up an isolated practice lab and learn where to practise security skills legally with intentionally vulnerable apps and training platforms.">
+
+    <title>Build a Safe Ethical Hacking Lab and Practise Legally | ToolSphere</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="container nav-container">
+
+            <a href="../index.html" class="logo">
+                Tool<span>Sphere</span>
+            </a>
+
+            <nav class="navigation" aria-label="Main navigation">
+
+                <a href="../index.html">Home</a>
+
+                <a href="../tools.html">Tools</a>
+
+                <a href="../cybersecurity.html" aria-current="page">Cybersecurity</a>
+
+                <a href="../programming.html">Programming</a>
+
+                <a href="../index.html#articles">Technology</a>
+
+                <a href="../contact.html">Contact</a>
+
+            </nav>
+
+            <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+
+        <section class="tool-page">
+
+            <div class="container">
+
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../index.html">Home</a> &rsaquo;
+                    <a href="../cybersecurity.html">Cybersecurity</a> &rsaquo;
+                    <span>Safe Lab</span>
+                </nav>
+
+                <div class="tool-intro">
+
+                    <p class="section-label">
+                        ETHICAL HACKING • GUIDE 3 OF 3
+                    </p>
+
+                    <h1>
+                        Build a Safe Ethical Hacking Lab and Practise Legally
+                    </h1>
+
+                    <p>
+                        Set up a private place to practise, and learn where it is legal to try things.
+                    </p>
+
+                </div>
+
+
+                <div class="content-card article">
+
+
+
+
+                    <div id="panel-guide" class="tab-panel">
+
+                        <p class="meta">
+                            Published 27 October 2026 • About 4 minutes to read
+                        </p>
+
+                        <div class="toc"><p class="toc-title">In this guide</p><ol><li><a href="#why-you-need-a-lab">Why you need a lab</a></li><li><a href="#what-you-need">What you need</a></li><li><a href="#keep-the-lab-isolated">Keep the lab isolated</a></li><li><a href="#practice-targets-that-are-meant-to-be-attacked">Practice targets that are meant to be attacked</a></li><li><a href="#run-juice-shop-on-your-own-computer">Run Juice Shop on your own computer</a></li><li><a href="#about-kali-linux-and-similar-systems">About Kali Linux and similar systems</a></li><li><a href="#a-sensible-learning-order">A sensible learning order</a></li><li><a href="#take-notes-like-a-professional">Take notes like a professional</a></li><li><a href="#build-a-portfolio-safely">Build a portfolio safely</a></li><li><a href="#common-beginner-mistakes">Common beginner mistakes</a></li><li><a href="#practice-project">Practice project</a></li><li><a href="#summary">Summary</a></li><li><a href="#further-reading">Further reading</a></li></ol></div>
+
+
+<h2 id="why-you-need-a-lab">Why you need a lab</h2>
+
+<p>
+    You learn security by doing, but you may only do it on systems you own or
+    have written permission to test. A <strong>lab</strong> is your own
+    private, isolated setup where nothing you try can hurt anyone else. It is
+    the safe, legal way to practise.
+</p>
+
+<div class="notice">
+    <strong>Rule one:</strong> use tools and techniques only against your own
+    lab or platforms that invite you to practise. Never point them at a school,
+    workplace, public Wi-Fi network or website you do not own.
+</div>
+
+<h2 id="what-you-need">What you need</h2>
+
+<ul>
+    <li>A computer with enough memory. 8 GB works for one small virtual machine, and 16 GB is more comfortable.</li>
+    <li>Free disk space, since virtual machine images are large.</li>
+    <li>Virtualisation software such as Oracle VirtualBox, which is free, or VMware's desktop products. Check each product's current licence terms.</li>
+    <li>Or Docker, for running small ready-made apps.</li>
+</ul>
+
+<h2 id="keep-the-lab-isolated">Keep the lab isolated</h2>
+
+<ul>
+    <li>Use a <strong>host-only</strong> or <strong>internal</strong> network so lab machines talk only to each other, not to the real network.</li>
+    <li>Take <strong>snapshots</strong> before experiments, so you can roll back.</li>
+    <li>Never reuse a real password inside the lab.</li>
+    <li>Do not keep personal files on lab machines.</li>
+    <li>Update your host computer normally. A lab does not excuse weak basics.</li>
+</ul>
+
+<h2 id="practice-targets-that-are-meant-to-be-attacked">Practice targets that are meant to be attacked</h2>
+
+<p>
+    These are deliberately weak applications and training sites, made for
+    learners:
+</p>
+
+<ul>
+    <li><strong>OWASP Juice Shop:</strong> a modern web shop full of planted weaknesses, with a built-in score board.</li>
+    <li><strong>DVWA</strong> (Damn Vulnerable Web Application) and <strong>OWASP WebGoat:</strong> classic training apps for web weaknesses.</li>
+    <li><strong>TryHackMe</strong> and <strong>Hack The Box:</strong> online platforms with guided rooms and challenges, many aimed at beginners.</li>
+    <li><strong>picoCTF</strong> and <strong>OverTheWire:</strong> free capture-the-flag games and command-line puzzles.</li>
+</ul>
+
+<p>
+    Read each platform's own rules before you start, because they differ.
+</p>
+
+<h2 id="run-juice-shop-on-your-own-computer">Run Juice Shop on your own computer</h2>
+
+<p>
+    If you have Docker installed, one command starts it. The
+    <code>127.0.0.1</code> part makes it reachable only from your own computer,
+    which keeps it private:
+</p>
+
+<pre><code>docker run --rm -p 127.0.0.1:3000:3000 bkimminich/juice-shop</code></pre>
+
+<p>
+    Then open <code>http://localhost:3000</code> in your browser. Stop it with
+    Ctrl+C, and because of <code>--rm</code> it cleans up after itself.
+</p>
+
+<h2 id="about-kali-linux-and-similar-systems">About Kali Linux and similar systems</h2>
+
+<p>
+    Systems such as Kali Linux and Parrot OS bundle many security tools. They
+    are popular for learning, but they are not magic and not necessary on day
+    one. Install one in a virtual machine, not as your everyday system. Every
+    tool in them is dual-use, so the same rule applies: only on your lab.
+</p>
+
+<h2 id="a-sensible-learning-order">A sensible learning order</h2>
+
+<ol>
+    <li>Networking and Linux basics.</li>
+    <li>How websites work, using the programming guides.</li>
+    <li>Beginner rooms on a training platform.</li>
+    <li>Web weaknesses in Juice Shop or DVWA, alongside the Web Security Basics guide.</li>
+    <li>Capture-the-flag games for fun and speed.</li>
+    <li>Write up what you learn, because teaching it cements it.</li>
+</ol>
+
+<h2 id="take-notes-like-a-professional">Take notes like a professional</h2>
+
+<p>
+    Keep a notebook for every exercise. Note the fix as well as the weakness,
+    since defenders and testers need both:
+</p>
+
+<pre><code>Date:        
+Lab / target:   OWASP Juice Shop (running on my own computer)
+Goal:           Find out how the login page handles wrong passwords
+What I tried:   
+What happened:  
+What I learned: 
+How a developer would fix it: </code></pre>
+
+<h2 id="build-a-portfolio-safely">Build a portfolio safely</h2>
+
+<ul>
+    <li>Publish write-ups of lab exercises on GitHub or a blog, with the platforms' permission rules in mind. Many platforms ask you not to publish answers to live challenges.</li>
+    <li>Never publish real vulnerabilities in real companies' systems, or any sensitive data.</li>
+    <li>Show your reasoning and the fix, not only the trick.</li>
+</ul>
+
+<h2 id="common-beginner-mistakes">Common beginner mistakes</h2>
+
+<ul>
+    <li>Running a vulnerable app on a network other people can reach.</li>
+    <li>Using a bridged network by accident, so a lab machine is exposed.</li>
+    <li>Trying new techniques on a real website "to see if it works".</li>
+    <li>Collecting tools instead of learning how things work.</li>
+    <li>Skipping notes, then forgetting what you learned.</li>
+</ul>
+
+<h2 id="practice-project">Practice project</h2>
+
+<p>
+    Install VirtualBox or Docker, start Juice Shop, and solve its first few
+    beginner challenges. Write a one-page note for each in the template above,
+    including how a developer could prevent it.
+</p>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+    <li>Practise only on systems you own or are invited to test.</li>
+    <li>Keep your lab isolated, and use snapshots.</li>
+    <li>Use purpose-built apps and training platforms.</li>
+    <li>Write notes with both the weakness and the fix.</li>
+</ul>
+
+<h2 id="further-reading">Further reading</h2>
+
+<ul>
+    <li><a href="https://owasp.org/www-project-juice-shop/">OWASP Juice Shop</a></li>
+    <li><a href="https://tryhackme.com/">TryHackMe</a></li>
+    <li><a href="https://www.hackthebox.com/">Hack The Box</a></li>
+    <li><a href="https://picoctf.org/">picoCTF</a></li>
+</ul>
+
+
+                        
+
+                        <div class="path-nav">
+                            <a class="prev" href="web-security-basics.html"><span>PREVIOUS GUIDE</span>Web Security</a>
+                            <a class="next" href="../cybersecurity.html"><span>END OF TRACK</span>Back to Cybersecurity guides</a>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="container footer-content">
+
+            <div>
+
+                <h3>
+                    ToolSphere
+                </h3>
+
+                <p>
+                    Technology, tools and practical
+                    learning resources.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Explore
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../tools.html">
+                        Tools
+                    </a>
+
+                    <a href="../index.html#articles">
+                        Articles
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Learning
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../cybersecurity.html">
+                        Cybersecurity
+                    </a>
+
+                    <a href="../programming.html">
+                        Programming
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../about.html">
+                        About
+                    </a>
+
+                    <a href="../contact.html">
+                        Contact
+                    </a>
+
+                    <a href="../privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="../terms.html">
+                        Terms of Use
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 ToolSphere. All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

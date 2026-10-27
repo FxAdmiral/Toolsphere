@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Learn how to read security logs, what a SIEM does, how detection rules work, and write a small script that spots repeated failed logins.">
+
+    <title>Logs, Alerts and SIEM for Beginners | ToolSphere</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="container nav-container">
+
+            <a href="../index.html" class="logo">
+                Tool<span>Sphere</span>
+            </a>
+
+            <nav class="navigation" aria-label="Main navigation">
+
+                <a href="../index.html">Home</a>
+
+                <a href="../tools.html">Tools</a>
+
+                <a href="../cybersecurity.html" aria-current="page">Cybersecurity</a>
+
+                <a href="../programming.html">Programming</a>
+
+                <a href="../index.html#articles">Technology</a>
+
+                <a href="../contact.html">Contact</a>
+
+            </nav>
+
+            <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+
+        <section class="tool-page">
+
+            <div class="container">
+
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../index.html">Home</a> &rsaquo;
+                    <a href="../cybersecurity.html">Cybersecurity</a> &rsaquo;
+                    <span>Logs &amp; SIEM</span>
+                </nav>
+
+                <div class="tool-intro">
+
+                    <p class="section-label">
+                        SOC ANALYST • GUIDE 2 OF 3
+                    </p>
+
+                    <h1>
+                        Logs, Alerts and SIEM for Beginners
+                    </h1>
+
+                    <p>
+                        Learn to read the trail that every system leaves behind, and how a SIEM turns it into alerts.
+                    </p>
+
+                </div>
+
+
+                <div class="content-card article">
+
+
+
+
+                    <div id="panel-guide" class="tab-panel">
+
+                        <p class="meta">
+                            Published 27 October 2026 • About 5 minutes to read
+                        </p>
+
+                        <div class="toc"><p class="toc-title">In this guide</p><ol><li><a href="#what-is-a-log">What is a log?</a></li><li><a href="#where-logs-come-from">Where logs come from</a></li><li><a href="#reading-a-log-line">Reading a log line</a></li><li><a href="#useful-windows-events">Useful Windows events</a></li><li><a href="#what-is-a-siem">What is a SIEM?</a></li><li><a href="#detection-rules">Detection rules</a></li><li><a href="#false-positives-and-tuning">False positives and tuning</a></li><li><a href="#write-your-own-mini-detector">Write your own mini detector</a></li><li><a href="#good-log-habits">Good log habits</a></li><li><a href="#common-beginner-mistakes">Common beginner mistakes</a></li><li><a href="#practice-project">Practice project</a></li><li><a href="#summary">Summary</a></li><li><a href="#further-reading">Further reading</a></li></ol></div>
+
+
+<h2 id="what-is-a-log">What is a log?</h2>
+
+<p>
+    A <strong>log</strong> is a record of something that happened on a system:
+    a person signed in, a file was opened, a web page was requested, a
+    connection was blocked. Almost everything leaves a log line. For a security
+    analyst, logs are the evidence, a bit like the footage from many cameras.
+</p>
+
+<h2 id="where-logs-come-from">Where logs come from</h2>
+
+<ul>
+    <li><strong>Operating systems:</strong> sign-ins, new accounts, services starting.</li>
+    <li><strong>Web servers:</strong> every page request and its result.</li>
+    <li><strong>Firewalls and routers:</strong> allowed and blocked connections.</li>
+    <li><strong>Cloud services and applications:</strong> who changed what.</li>
+    <li><strong>Security tools:</strong> EDR detections, email filter results.</li>
+</ul>
+
+<h2 id="reading-a-log-line">Reading a log line</h2>
+
+<p>
+    Most log lines answer the same questions: <strong>when</strong>,
+    <strong>where</strong>, <strong>who</strong>, <strong>what</strong> and
+    <strong>from where</strong>. Here is a made-up login log:
+</p>
+
+<pre><code>2026-10-20 03:12:01 server1 sshd: Failed password for adaeze from 203.0.113.50
+2026-10-20 03:12:04 server1 sshd: Failed password for adaeze from 203.0.113.50
+2026-10-20 03:12:07 server1 sshd: Failed password for adaeze from 203.0.113.50
+2026-10-20 03:12:10 server1 sshd: Failed password for adaeze from 203.0.113.50
+2026-10-20 03:12:13 server1 sshd: Failed password for adaeze from 203.0.113.50
+2026-10-20 03:12:16 server1 sshd: Accepted password for adaeze from 203.0.113.50
+2026-10-20 09:30:44 server1 sshd: Accepted password for tunde from 198.51.100.7</code></pre>
+
+<p>
+    Read it as a story. Five failed passwords three seconds apart, then a
+    success, all for one account from one address at 3 a.m. That pattern is
+    what a person (or program) guessing passwords looks like. The IP address
+    comes from a range reserved for examples, so it is not a real machine.
+</p>
+
+<p>Web server logs have a different shape but the same ideas:</p>
+
+<pre><code>198.51.100.7 - - [20/Oct/2026:09:31:02 +0000] "GET /index.html HTTP/1.1" 200 5120
+198.51.100.7 - - [20/Oct/2026:09:31:05 +0000] "GET /missing.png HTTP/1.1" 404 190</code></pre>
+
+<p>
+    Here <code>200</code> means the page was served and <code>404</code> means
+    the file was not found. The status codes are the same ones you met in the
+    REST API guide.
+</p>
+
+<h2 id="useful-windows-events">Useful Windows events</h2>
+
+<p>
+    On Windows, the Security log records sign-ins with numbered event IDs. Two
+    you will see constantly are <code>4625</code>, a failed logon, and
+    <code>4624</code>, a successful logon. Learning a handful of IDs gives you
+    a head start.
+</p>
+
+<h2 id="what-is-a-siem">What is a SIEM?</h2>
+
+<p>
+    Reading logs on one machine is easy. A company may have thousands of
+    machines. A <strong>SIEM</strong> (security information and event
+    management) system solves this. It:
+</p>
+
+<ul>
+    <li><strong>Collects</strong> logs from everywhere into one place.</li>
+    <li><strong>Normalises</strong> them, so "user" and "username" and "account" become the same field.</li>
+    <li><strong>Stores and searches</strong> them, so you can ask "show every login by this user this week".</li>
+    <li><strong>Correlates</strong> events across systems to find patterns no single log shows.</li>
+    <li><strong>Alerts</strong> when a detection rule matches.</li>
+</ul>
+
+<p>
+    Well-known SIEM products include Splunk, Microsoft Sentinel and Elastic
+    Security. Their search languages differ, but the thinking is the same.
+</p>
+
+<h2 id="detection-rules">Detection rules</h2>
+
+<p>
+    A <strong>detection rule</strong> describes a suspicious pattern. This is
+    plain-language pseudocode, not any one product's syntax:
+</p>
+
+<pre><code>IF   event = "failed login"
+AND  same source IP
+AND  count &gt;= 5
+AND  within 5 minutes
+THEN raise alert: "Possible password guessing"
+     severity = medium
+     then, if a successful login follows from the same IP,
+     raise severity = high</code></pre>
+
+<h2 id="false-positives-and-tuning">False positives and tuning</h2>
+
+<p>
+    Rules are never perfect. A user who forgot their password will trigger the
+    rule above, and that is a <strong>false positive</strong>. Too many false
+    positives cause <strong>alert fatigue</strong>: analysts get tired and real
+    attacks hide in the noise. So SOC teams <strong>tune</strong> rules, for
+    example by raising a threshold, ignoring a known scanner, or adding
+    context. A good analyst reports noisy rules rather than just closing them.
+</p>
+
+<h2 id="write-your-own-mini-detector">Write your own mini detector</h2>
+
+<p>
+    Save the sample log above as <code>auth.log</code> and this script next to
+    it as <code>count_failed.py</code>:
+</p>
+
+<pre><code>from collections import Counter
+
+failed = Counter()
+
+with open("auth.log") as log:
+    for line in log:
+        if "Failed password" in line:
+            source_ip = line.split(" from ")[-1].strip()
+            failed[source_ip] += 1
+
+for ip, count in failed.most_common():
+    flag = "  &lt;-- check this one" if count &gt;= 5 else ""
+    print(ip, count, flag)</code></pre>
+
+<p>
+    Run <code>python count_failed.py</code>. It counts failed passwords per
+    address and flags any with five or more. Real SIEM rules also look at time
+    windows, but this shows the core idea in a few lines.
+</p>
+
+<h2 id="good-log-habits">Good log habits</h2>
+
+<ul>
+    <li><strong>Keep clocks accurate.</strong> If systems disagree about the time, you cannot line events up.</li>
+    <li><strong>Keep logs long enough</strong> to investigate something found weeks later.</li>
+    <li><strong>Protect logs.</strong> Attackers try to delete them, so copy them to a separate place.</li>
+    <li><strong>Mind privacy.</strong> Logs can contain names, addresses and sometimes secrets. Never paste real logs into an online tool. Use made-up samples.</li>
+</ul>
+
+<h2 id="common-beginner-mistakes">Common beginner mistakes</h2>
+
+<ul>
+    <li>Looking at one log line instead of the pattern around it.</li>
+    <li>Trusting the time without checking the time zone.</li>
+    <li>Assuming "no alert" means "no attack".</li>
+    <li>Closing noisy alerts without reporting them.</li>
+</ul>
+
+<h2 id="practice-project">Practice project</h2>
+
+<p>
+    Extend the script so it also counts <em>successful</em> logins per
+    address, and prints a warning when an address had five or more failures
+    followed by a success. Then write three more fake log lines of your own and
+    test that your script handles them.
+</p>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+    <li>Logs record what happened. Read them as a story: when, who, what, from where.</li>
+    <li>A SIEM collects, normalises, searches, correlates and alerts.</li>
+    <li>Detection rules describe suspicious patterns, and tuning reduces false positives.</li>
+    <li>Keep logs accurate, protected and private.</li>
+</ul>
+
+<h2 id="further-reading">Further reading</h2>
+
+<ul>
+    <li><a href="https://attack.mitre.org/">MITRE ATT&amp;CK</a>, to connect log patterns to attacker techniques</li>
+    <li><a href="https://csrc.nist.gov/pubs/sp/800/92/final">NIST SP 800-92: Guide to Computer Security Log Management</a></li>
+</ul>
+
+
+                        <div class="related"><strong>Related on ToolSphere:</strong> <a href="../tools/json-formatter.html">JSON Formatter and Validator</a> (for JSON logs) and <a href="../tools/hash-generator.html">Hash Generator</a></div>
+
+                        <div class="path-nav">
+                            <a class="prev" href="what-is-a-soc-analyst.html"><span>PREVIOUS GUIDE</span>SOC Basics</a>
+                            <a class="next" href="incident-response-basics.html"><span>NEXT GUIDE</span>Incident Response</a>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="container footer-content">
+
+            <div>
+
+                <h3>
+                    ToolSphere
+                </h3>
+
+                <p>
+                    Technology, tools and practical
+                    learning resources.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Explore
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../tools.html">
+                        Tools
+                    </a>
+
+                    <a href="../index.html#articles">
+                        Articles
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Learning
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../cybersecurity.html">
+                        Cybersecurity
+                    </a>
+
+                    <a href="../programming.html">
+                        Programming
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../about.html">
+                        About
+                    </a>
+
+                    <a href="../contact.html">
+                        Contact
+                    </a>
+
+                    <a href="../privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="../terms.html">
+                        Terms of Use
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 ToolSphere. All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

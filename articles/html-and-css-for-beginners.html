@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Learn what HTML and CSS are and build your first styled, mobile-friendly web page with clear examples.">
+
+    <title>HTML and CSS for Beginners: Build Your First Web Page | ToolSphere</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="container nav-container">
+
+            <a href="../index.html" class="logo">
+                Tool<span>Sphere</span>
+            </a>
+
+            <nav class="navigation" aria-label="Main navigation">
+
+                <a href="../index.html">Home</a>
+
+                <a href="../tools.html">Tools</a>
+
+                <a href="../cybersecurity.html">Cybersecurity</a>
+
+                <a href="../programming.html" aria-current="page">Programming</a>
+
+                <a href="../index.html#articles">Technology</a>
+
+                <a href="../contact.html">Contact</a>
+
+            </nav>
+
+            <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+
+        <section class="tool-page">
+
+            <div class="container">
+
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../index.html">Home</a> &rsaquo;
+                    <a href="../programming.html">Programming</a> &rsaquo;
+                    <span>HTML &amp; CSS</span>
+                </nav>
+
+                <div class="tool-intro">
+
+                    <p class="section-label">
+                        PROGRAMMING • GUIDE 1 OF 6
+                    </p>
+
+                    <h1>
+                        HTML and CSS for Beginners: Build Your First Web Page
+                    </h1>
+
+                    <p>
+                        Learn how web pages are built, step by step, and create your first styled page.
+                    </p>
+
+                </div>
+
+
+                <div class="content-card article">
+
+
+
+
+                    <div id="panel-guide" class="tab-panel">
+
+                        <p class="meta">
+                            Published 25 October 2026 • About 6 minutes to read
+                        </p>
+
+                        <div class="toc"><p class="toc-title">In this guide</p><ol><li><a href="#what-are-html-and-css">What are HTML and CSS?</a></li><li><a href="#your-first-html-page">Your first HTML page</a></li><li><a href="#elements-worth-learning-first">Elements worth learning first</a></li><li><a href="#adding-css">Adding CSS</a></li><li><a href="#the-box-model">The box model</a></li><li><a href="#layout-with-flexbox">Layout with Flexbox</a></li><li><a href="#making-your-page-work-on-phones">Making your page work on phones</a></li><li><a href="#common-beginner-mistakes">Common beginner mistakes</a></li><li><a href="#practice-project-a-profile-card-page">Practice project: a profile card page</a></li><li><a href="#summary">Summary</a></li><li><a href="#further-reading">Further reading</a></li></ol></div>
+
+
+<h2 id="what-are-html-and-css">What are HTML and CSS?</h2>
+
+<p>
+    <strong>HTML</strong> (HyperText Markup Language) gives a web page its
+    structure and content: headings, paragraphs, links, images and lists.
+    <strong>CSS</strong> (Cascading Style Sheets) controls how that content
+    looks: colours, fonts, spacing and layout.
+</p>
+
+<p>
+    Think of a house. HTML is the walls and rooms. CSS is the paint, the
+    furniture and the lighting. Every website you use is built from these two,
+    plus JavaScript, which adds behaviour and is the topic of the next guide.
+</p>
+
+<h2 id="your-first-html-page">Your first HTML page</h2>
+
+<p>
+    Make a new folder, then create a file called <code>index.html</code>
+    inside it. Paste in this code:
+</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My First Page&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;header&gt;
+        &lt;h1&gt;Hello, world!&lt;/h1&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;p&gt;This is my first web page. I am learning &lt;strong&gt;HTML&lt;/strong&gt;
+           and &lt;em&gt;CSS&lt;/em&gt;.&lt;/p&gt;
+
+        &lt;h2&gt;Things I want to learn&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li&gt;HTML&lt;/li&gt;
+            &lt;li&gt;CSS&lt;/li&gt;
+            &lt;li&gt;JavaScript&lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;p&gt;&lt;a href="https://developer.mozilla.org/"&gt;Visit MDN Web Docs&lt;/a&gt;&lt;/p&gt;
+
+        &lt;img src="photo.jpg" alt="A short description of the picture"&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&amp;copy; 2026 My First Page&lt;/p&gt;
+    &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>What each part does:</p>
+
+<ul>
+    <li><code>&lt;!DOCTYPE html&gt;</code> tells the browser this is a modern HTML page.</li>
+    <li>The <code>&lt;head&gt;</code> holds information about the page that is not shown on it, such as the title that appears in the browser tab.</li>
+    <li>The <code>&lt;body&gt;</code> holds everything the visitor sees.</li>
+    <li>Most elements have an opening tag and a closing tag, like <code>&lt;p&gt;</code> and <code>&lt;/p&gt;</code>.</li>
+    <li><strong>Attributes</strong> add detail to a tag, such as <code>href</code> on a link or <code>src</code> and <code>alt</code> on an image.</li>
+</ul>
+
+<p>
+    The picture line points to a file called <code>photo.jpg</code>. Put any
+    image with that name in the folder, or delete that line for now. If the
+    image is missing, the browser shows the <code>alt</code> text instead,
+    which is one reason alt text matters. It also lets people who use screen
+    readers know what the picture shows.
+</p>
+
+<h2 id="elements-worth-learning-first">Elements worth learning first</h2>
+
+<ul>
+    <li><code>h1</code> to <code>h6</code>: headings. Use one <code>h1</code> per page, then <code>h2</code> for sections.</li>
+    <li><code>p</code>: a paragraph. <code>a</code>: a link. <code>img</code>: an image.</li>
+    <li><code>ul</code>, <code>ol</code> and <code>li</code>: bulleted and numbered lists.</li>
+    <li><code>div</code> and <code>span</code>: generic containers with no meaning of their own.</li>
+    <li><code>button</code>, <code>form</code>, <code>input</code> and <code>label</code>: for interaction.</li>
+    <li><strong>Semantic elements</strong> such as <code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>article</code> and <code>footer</code>. They describe the purpose of each part of the page, which helps search engines and assistive technology.</li>
+</ul>
+
+<h2 id="adding-css">Adding CSS</h2>
+
+<p>
+    Create a second file next to <code>index.html</code> called
+    <code>style.css</code>. The page already links to it with this line in
+    the <code>&lt;head&gt;</code>:
+    <code>&lt;link rel="stylesheet" href="style.css"&gt;</code>.
+    Add these rules to the CSS file:
+</p>
+
+<pre><code>body {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    color: #0f172a;
+    background: #f8fafc;
+    margin: 0;
+}
+
+header {
+    background: #2563eb;
+    color: #ffffff;
+    padding: 24px;
+    text-align: center;
+}
+
+main {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+a {
+    color: #2563eb;
+}
+
+.highlight {
+    background: #fef3c7;
+    padding: 2px 6px;
+    border-radius: 4px;
+}</code></pre>
+
+<p>
+    A CSS rule has a <strong>selector</strong> (what to style) and a
+    <strong>declaration block</strong> in curly braces (how to style it). Each
+    declaration is a <code>property: value;</code> pair.
+</p>
+
+<ul>
+    <li>An <strong>element selector</strong> like <code>body</code> or <code>header</code> targets every element of that type.</li>
+    <li>A <strong>class selector</strong> like <code>.highlight</code> targets any element with <code>class="highlight"</code>. You can reuse a class as often as you like.</li>
+    <li>An <strong>id selector</strong> like <code>#intro</code> targets the single element with <code>id="intro"</code>.</li>
+</ul>
+
+<p>
+    The word <em>cascading</em> describes what happens when two rules
+    disagree. More specific selectors win over less specific ones, and when
+    they are equally specific, the rule that comes later wins.
+</p>
+
+<p>
+    Try it: wrap a word in your page like this,
+    <code>&lt;span class="highlight"&gt;CSS&lt;/span&gt;</code>, and see
+    the yellow highlight appear.
+</p>
+
+<h2 id="the-box-model">The box model</h2>
+
+<p>
+    Every element on a page is a rectangular box with four layers, from the
+    inside out: the <strong>content</strong>, the <strong>padding</strong>
+    around it, the <strong>border</strong>, and the <strong>margin</strong>
+    that separates the box from its neighbours.
+</p>
+
+<pre><code>.card {
+    box-sizing: border-box;
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    margin: 16px auto;
+}</code></pre>
+
+<p>
+    <code>box-sizing: border-box</code> makes the width include the padding
+    and border, which is much easier to reason about. Many developers apply it
+    to every element with <code>* { box-sizing: border-box; }</code>. Open
+    your browser's developer tools with F12, pick the Elements tab, and click
+    an element to see its box drawn on screen.
+</p>
+
+<h2 id="layout-with-flexbox">Layout with Flexbox</h2>
+
+<p>
+    <strong>Flexbox</strong> arranges boxes in a row or column and spaces them
+    out for you. Put three boxes inside a container:
+</p>
+
+<pre><code>&lt;div class="cards"&gt;
+    &lt;div class="card"&gt;One&lt;/div&gt;
+    &lt;div class="card"&gt;Two&lt;/div&gt;
+    &lt;div class="card"&gt;Three&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<p>Then style the container:</p>
+
+<pre><code>.cards {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.cards .card {
+    flex: 1 1 200px;
+    width: auto;
+    margin: 0;
+}</code></pre>
+
+<p>
+    The boxes now sit side by side, share the space, and wrap onto new lines
+    when the screen is narrow.
+</p>
+
+<h2 id="making-your-page-work-on-phones">Making your page work on phones</h2>
+
+<p>
+    Most visitors use a phone, so your page must work on small screens. Two
+    things help. First, keep the line
+    <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code>
+    in your <code>&lt;head&gt;</code>, or phones will show a tiny zoomed-out
+    version. Second, use a <strong>media query</strong> to change styles at a
+    chosen width:
+</p>
+
+<pre><code>@media (max-width: 600px) {
+    header {
+        padding: 16px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+}</code></pre>
+
+<p>
+    To test, press F12 in your browser, then turn on the device toolbar
+    (the phone and tablet icon) and pick a phone size.
+</p>
+
+<h2 id="common-beginner-mistakes">Common beginner mistakes</h2>
+
+<ul>
+    <li><strong>Styles do not apply.</strong> Check that the CSS file is linked, that the file name matches exactly, and that the class name in the HTML matches the one in the CSS.</li>
+    <li><strong>A missing closing brace.</strong> One forgotten <code>}</code> can break everything after it. While building ToolSphere, a single misplaced brace made a whole block of styles apply only on small screens. Your editor's formatting tool helps find these.</li>
+    <li><strong>Wrong file paths.</strong> Many web servers treat <code>Photo.JPG</code> and <code>photo.jpg</code> as different files. Use lowercase names without spaces.</li>
+    <li><strong>Missing alt text.</strong> Always describe meaningful images.</li>
+    <li><strong>Low contrast.</strong> Light grey text on a white background is hard to read. Choose colours with strong contrast.</li>
+</ul>
+
+<h2 id="practice-project-a-profile-card-page">Practice project: a profile card page</h2>
+
+<p>Build a one-page profile that includes:</p>
+
+<ul>
+    <li>Your name as an <code>h1</code> and a short bio in a paragraph.</li>
+    <li>A photo with proper alt text.</li>
+    <li>A list of three skills you are learning.</li>
+    <li>Links to two websites you like.</li>
+    <li>A footer with the year.</li>
+</ul>
+
+<p>
+    Then style it with at least one class, one flexbox container and one
+    media query, and check it at phone size. When it works, you have used
+    everything in this guide.
+</p>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+    <li>HTML structures the content. CSS styles it.</li>
+    <li>Elements have tags and attributes, and semantic elements describe each part of a page.</li>
+    <li>CSS rules pair a selector with property and value declarations.</li>
+    <li>Every element is a box: content, padding, border and margin.</li>
+    <li>Flexbox lays out boxes, and media queries adapt the page to small screens.</li>
+</ul>
+
+<h2 id="further-reading">Further reading</h2>
+
+<ul>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML">MDN Web Docs: HTML</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS">MDN Web Docs: CSS</a></li>
+</ul>
+
+
+                        
+
+                        <div class="path-nav">
+                            <a class="prev" href="../programming.html"><span>BACK TO</span>The learning path</a>
+                            <a class="next" href="javascript-for-beginners.html"><span>NEXT GUIDE</span>JavaScript</a>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="container footer-content">
+
+            <div>
+
+                <h3>
+                    ToolSphere
+                </h3>
+
+                <p>
+                    Technology, tools and practical
+                    learning resources.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Explore
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../tools.html">
+                        Tools
+                    </a>
+
+                    <a href="../index.html#articles">
+                        Articles
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Learning
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../cybersecurity.html">
+                        Cybersecurity
+                    </a>
+
+                    <a href="../programming.html">
+                        Programming
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../about.html">
+                        About
+                    </a>
+
+                    <a href="../contact.html">
+                        Contact
+                    </a>
+
+                    <a href="../privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="../terms.html">
+                        Terms of Use
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 ToolSphere. All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

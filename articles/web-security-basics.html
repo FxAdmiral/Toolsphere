@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Understand the most common web application weaknesses from the OWASP Top 10 and how developers defend against each one.">
+
+    <title>Web Security Basics: The OWASP Top 10 in Plain Language | ToolSphere</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="container nav-container">
+
+            <a href="../index.html" class="logo">
+                Tool<span>Sphere</span>
+            </a>
+
+            <nav class="navigation" aria-label="Main navigation">
+
+                <a href="../index.html">Home</a>
+
+                <a href="../tools.html">Tools</a>
+
+                <a href="../cybersecurity.html" aria-current="page">Cybersecurity</a>
+
+                <a href="../programming.html">Programming</a>
+
+                <a href="../index.html#articles">Technology</a>
+
+                <a href="../contact.html">Contact</a>
+
+            </nav>
+
+            <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+
+        <section class="tool-page">
+
+            <div class="container">
+
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../index.html">Home</a> &rsaquo;
+                    <a href="../cybersecurity.html">Cybersecurity</a> &rsaquo;
+                    <span>Web Security</span>
+                </nav>
+
+                <div class="tool-intro">
+
+                    <p class="section-label">
+                        ETHICAL HACKING • GUIDE 2 OF 3
+                    </p>
+
+                    <h1>
+                        Web Security Basics: The OWASP Top 10 in Plain Language
+                    </h1>
+
+                    <p>
+                        Learn the most common ways websites go wrong, and how to build them safely.
+                    </p>
+
+                </div>
+
+
+                <div class="content-card article">
+
+
+
+
+                    <div id="panel-guide" class="tab-panel">
+
+                        <p class="meta">
+                            Published 27 October 2026 • About 5 minutes to read
+                        </p>
+
+                        <div class="toc"><p class="toc-title">In this guide</p><ol><li><a href="#what-is-the-owasp-top-10">What is the OWASP Top 10?</a></li><li><a href="#1-broken-access-control">1. Broken access control</a></li><li><a href="#2-security-misconfiguration">2. Security misconfiguration</a></li><li><a href="#3-software-supply-chain-failures">3. Software supply chain failures</a></li><li><a href="#4-cryptographic-failures">4. Cryptographic failures</a></li><li><a href="#5-injection">5. Injection</a></li><li><a href="#6-insecure-design">6. Insecure design</a></li><li><a href="#7-authentication-failures">7. Authentication failures</a></li><li><a href="#8-software-or-data-integrity-failures">8. Software or data integrity failures</a></li><li><a href="#9-security-logging-and-alerting-failures">9. Security logging and alerting failures</a></li><li><a href="#10-mishandling-of-exceptional-conditions">10. Mishandling of exceptional conditions</a></li><li><a href="#helpful-security-headers">Helpful security headers</a></li><li><a href="#habits-of-a-secure-developer">Habits of a secure developer</a></li><li><a href="#common-beginner-mistakes">Common beginner mistakes</a></li><li><a href="#practice-project">Practice project</a></li><li><a href="#summary">Summary</a></li><li><a href="#further-reading">Further reading</a></li></ol></div>
+
+
+<h2 id="what-is-the-owasp-top-10">What is the OWASP Top 10?</h2>
+
+<p>
+    <strong>OWASP</strong> (the Open Worldwide Application Security Project) is
+    a non-profit community that publishes free security knowledge. Its best
+    known document, the <strong>OWASP Top 10</strong>, lists the most serious
+    and common weaknesses in web applications. It is updated every few years, so
+    check owasp.org for the newest edition. This guide explains the ideas in
+    plain language and, as defence, what to do about each.
+</p>
+
+<p>
+    The categories in the 2025 edition are listed below. The names may be
+    reworded in later editions, but the underlying problems are long-lived.
+</p>
+
+<h2 id="1-broken-access-control">1. Broken access control</h2>
+
+<p>
+    A user can do something they should not be allowed to do, such as view
+    another person's order by changing a number in the address. The server must
+    check <strong>every request</strong>, not just hide buttons.
+</p>
+
+<pre><code>// Weak: trusts the id in the URL
+app.get("/orders/:id", (req, res) =&gt; {
+    res.json(getOrder(req.params.id));
+});
+
+// Better: also checks the order belongs to the signed-in user
+app.get("/orders/:id", (req, res) =&gt; {
+    const order = getOrder(req.params.id);
+
+    if (!order || order.userId !== req.user.id) {
+        return res.status(404).send("Not found");
+    }
+
+    res.json(order);
+});</code></pre>
+
+<h2 id="2-security-misconfiguration">2. Security misconfiguration</h2>
+
+<p>
+    Unsafe settings: default passwords left unchanged, debug pages left on,
+    unnecessary services running, or storage left open to the public.
+    <strong>Defence:</strong> use a secure baseline, remove what you do not
+    need, and review settings regularly.
+</p>
+
+<h2 id="3-software-supply-chain-failures">3. Software supply chain failures</h2>
+
+<p>
+    Your project depends on code written by others, and so do they. A
+    compromised or malicious package can end up in your site.
+    <strong>Defence:</strong> use few dependencies, trusted sources, lock files
+    and regular updates, and run <code>npm audit</code> or similar checks.
+</p>
+
+<h2 id="4-cryptographic-failures">4. Cryptographic failures</h2>
+
+<p>
+    Sensitive data sent or stored without proper protection, or with weak or
+    home-made cryptography. <strong>Defence:</strong> use HTTPS everywhere,
+    store passwords with Argon2id, bcrypt or scrypt, and use well-tested
+    libraries. Read
+    <a href="what-is-base64.html">Why Base64 Isn't Encryption</a> to see why
+    encoding is not protection.
+</p>
+
+<h2 id="5-injection">5. Injection</h2>
+
+<p>
+    Untrusted input is mixed into a command or query and treated as
+    instructions. SQL injection and cross-site scripting (XSS) are the best
+    known. <strong>Defence:</strong> keep data separate from commands. Use
+    parameterised queries (see the
+    <a href="databases-for-beginners.html">Databases guide</a>) and treat page
+    content as text:
+</p>
+
+<pre><code>// Risky: the text is treated as HTML
+output.innerHTML = userText;
+
+// Safer: the text is treated only as text
+output.textContent = userText;</code></pre>
+
+<h2 id="6-insecure-design">6. Insecure design</h2>
+
+<p>
+    The problem is in the plan, not the code, such as a password reset that
+    anyone can abuse. <strong>Defence:</strong> think about how things could be
+    misused while designing, and not only after building.
+</p>
+
+<h2 id="7-authentication-failures">7. Authentication failures</h2>
+
+<p>
+    Weak sign-in: guessable passwords allowed, no limit on attempts, poor
+    session handling. <strong>Defence:</strong> require strong passwords (the
+    <a href="../tools/password-strength.html">Password Strength Checker</a>
+    shows what weakness looks like), limit login attempts, offer multi-factor
+    authentication and expire sessions properly.
+</p>
+
+<h2 id="8-software-or-data-integrity-failures">8. Software or data integrity failures</h2>
+
+<p>
+    Trusting code or data without checking that it is genuine, for example
+    loading a script from an unverified source or accepting unsigned updates.
+    <strong>Defence:</strong> verify sources and signatures, and protect your
+    build and update process.
+</p>
+
+<h2 id="9-security-logging-and-alerting-failures">9. Security logging and alerting failures</h2>
+
+<p>
+    Without good logs and alerts, attacks go unnoticed for weeks. This links
+    straight to the SOC guides:
+    <a href="logs-alerts-and-siem.html">Logs, Alerts and SIEM</a>.
+    <strong>Defence:</strong> log sign-ins and important actions, protect the
+    logs, and make sure someone is alerted.
+</p>
+
+<h2 id="10-mishandling-of-exceptional-conditions">10. Mishandling of exceptional conditions</h2>
+
+<p>
+    Errors and unusual situations handled badly: crashes that expose internal
+    details, or code that "fails open" and lets people in when something goes
+    wrong. <strong>Defence:</strong> handle errors deliberately, show users a
+    friendly message, keep details in your logs, and make failures safe by
+    default.
+</p>
+
+<h2 id="helpful-security-headers">Helpful security headers</h2>
+
+<p>
+    Web servers can send headers that tell browsers to behave more safely.
+    Check each one before use, because a strict policy can break a page:
+</p>
+
+<pre><code>Strict-Transport-Security: max-age=31536000; includeSubDomains
+Content-Security-Policy: default-src 'self'
+X-Content-Type-Options: nosniff
+Referrer-Policy: strict-origin-when-cross-origin</code></pre>
+
+<h2 id="habits-of-a-secure-developer">Habits of a secure developer</h2>
+
+<ul>
+    <li>Never trust input from a browser. Validate it on the server.</li>
+    <li>Give every account and program the least access it needs.</li>
+    <li>Keep software and dependencies updated.</li>
+    <li>Keep secrets out of code and out of Git.</li>
+    <li>Log important events and review them.</li>
+</ul>
+
+<h2 id="common-beginner-mistakes">Common beginner mistakes</h2>
+
+<ul>
+    <li>Checking permissions only in the front end.</li>
+    <li>Showing detailed error messages to visitors.</li>
+    <li>Trusting a package because it has a nice README.</li>
+    <li>Treating the Top 10 as a complete checklist. It is a starting point.</li>
+</ul>
+
+<h2 id="practice-project">Practice project</h2>
+
+<p>
+    Take one of the small pages or Express servers you built in the
+    programming guides. For each of the ten categories, write one sentence on
+    whether it applies and one change that would make the project safer. Make
+    the changes you can.
+</p>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+    <li>The OWASP Top 10 lists the most common web application weaknesses.</li>
+    <li>Check access on the server, keep data separate from commands, and protect secrets.</li>
+    <li>Use HTTPS, strong password storage, updates and careful dependencies.</li>
+    <li>Log, alert and handle errors safely.</li>
+</ul>
+
+<h2 id="further-reading">Further reading</h2>
+
+<ul>
+    <li><a href="https://owasp.org/www-project-top-ten/">OWASP Top 10</a></li>
+    <li><a href="https://cheatsheetseries.owasp.org/">OWASP Cheat Sheet Series</a></li>
+</ul>
+
+
+                        
+
+                        <div class="path-nav">
+                            <a class="prev" href="what-is-ethical-hacking.html"><span>PREVIOUS GUIDE</span>Ethical Hacking</a>
+                            <a class="next" href="build-a-safe-hacking-lab.html"><span>NEXT GUIDE</span>Safe Lab</a>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="container footer-content">
+
+            <div>
+
+                <h3>
+                    ToolSphere
+                </h3>
+
+                <p>
+                    Technology, tools and practical
+                    learning resources.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Explore
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../tools.html">
+                        Tools
+                    </a>
+
+                    <a href="../index.html#articles">
+                        Articles
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Learning
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../cybersecurity.html">
+                        Cybersecurity
+                    </a>
+
+                    <a href="../programming.html">
+                        Programming
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../about.html">
+                        About
+                    </a>
+
+                    <a href="../contact.html">
+                        Contact
+                    </a>
+
+                    <a href="../privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="../terms.html">
+                        Terms of Use
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 ToolSphere. All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

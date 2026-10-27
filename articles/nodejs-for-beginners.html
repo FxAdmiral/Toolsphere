@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Learn what Node.js is, how to install it, run a script, build a tiny web server and use npm packages safely.">
+
+    <title>Node.js for Beginners: Run JavaScript Outside the Browser | ToolSphere</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="container nav-container">
+
+            <a href="../index.html" class="logo">
+                Tool<span>Sphere</span>
+            </a>
+
+            <nav class="navigation" aria-label="Main navigation">
+
+                <a href="../index.html">Home</a>
+
+                <a href="../tools.html">Tools</a>
+
+                <a href="../cybersecurity.html">Cybersecurity</a>
+
+                <a href="../programming.html" aria-current="page">Programming</a>
+
+                <a href="../index.html#articles">Technology</a>
+
+                <a href="../contact.html">Contact</a>
+
+            </nav>
+
+            <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+
+        <section class="tool-page">
+
+            <div class="container">
+
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../index.html">Home</a> &rsaquo;
+                    <a href="../programming.html">Programming</a> &rsaquo;
+                    <span>Node.js</span>
+                </nav>
+
+                <div class="tool-intro">
+
+                    <p class="section-label">
+                        PROGRAMMING • GUIDE 4 OF 6
+                    </p>
+
+                    <h1>
+                        Node.js for Beginners: Run JavaScript Outside the Browser
+                    </h1>
+
+                    <p>
+                        Learn what Node.js is and build your first small web server.
+                    </p>
+
+                </div>
+
+
+                <div class="content-card article">
+
+
+
+
+                    <div id="panel-guide" class="tab-panel">
+
+                        <p class="meta">
+                            Published 25 October 2026 • About 5 minutes to read
+                        </p>
+
+                        <div class="toc"><p class="toc-title">In this guide</p><ol><li><a href="#what-is-node-js">What is Node.js?</a></li><li><a href="#install-node-js">Install Node.js</a></li><li><a href="#run-your-first-program">Run your first program</a></li><li><a href="#built-in-modules">Built-in modules</a></li><li><a href="#a-tiny-web-server">A tiny web server</a></li><li><a href="#npm-and-packages">npm and packages</a></li><li><a href="#environment-variables-and-secrets">Environment variables and secrets</a></li><li><a href="#where-node-js-fits-in-toolsphere">Where Node.js fits in ToolSphere</a></li><li><a href="#common-beginner-mistakes">Common beginner mistakes</a></li><li><a href="#practice-project-a-time-api">Practice project: a time API</a></li><li><a href="#summary">Summary</a></li><li><a href="#further-reading">Further reading</a></li></ol></div>
+
+
+<h2 id="what-is-node-js">What is Node.js?</h2>
+
+<p>
+    Normally JavaScript runs inside a web browser. <strong>Node.js</strong> is
+    a program that lets JavaScript run on your computer or on a server, outside
+    the browser. It uses V8, the same JavaScript engine as Google Chrome.
+</p>
+
+<p>
+    Node.js is not a new language and not a framework. It is a
+    <strong>runtime</strong>: an environment that runs your JavaScript and adds
+    abilities browsers do not give web pages, such as reading files and
+    running a web server. It is widely used to build the back end of websites
+    and APIs, and many developer tools run on it.
+</p>
+
+<h2 id="install-node-js">Install Node.js</h2>
+
+<p>
+    Download Node.js from the official site, nodejs.org. Choose the
+    <strong>LTS</strong> (long-term support) version, which is the recommended
+    one for most people. Then open a terminal and check both programs:
+</p>
+
+<pre><code>node --version
+npm --version</code></pre>
+
+<p>
+    <code>npm</code> is Node's package manager, which installs code written by
+    other people. You get it together with Node.
+</p>
+
+<h2 id="run-your-first-program">Run your first program</h2>
+
+<p>Create a file called <code>hello.js</code> with this line:</p>
+
+<pre><code>console.log("Hello from Node.js!");</code></pre>
+
+<p>Then run it from the same folder:</p>
+
+<pre><code>node hello.js</code></pre>
+
+<h2 id="built-in-modules">Built-in modules</h2>
+
+<p>
+    Node comes with <strong>modules</strong> for common jobs: <code>fs</code>
+    for files, <code>path</code> for file paths, <code>os</code> for system
+    information and <code>http</code> for web servers. You load one with
+    <code>require</code>:
+</p>
+
+<pre><code>const fs = require("fs");
+
+const text = fs.readFileSync("notes.txt", "utf8");
+console.log(text.toUpperCase());</code></pre>
+
+<p>
+    Put a file called <code>notes.txt</code> next to the script and it prints
+    the text in capitals. You will see two styles in tutorials:
+    <code>require()</code> (CommonJS) and <code>import</code> (ES modules).
+    Both work, but a file that uses <code>import</code> needs either a
+    <code>.mjs</code> extension or <code>"type": "module"</code> in
+    <code>package.json</code>.
+</p>
+
+<h2 id="a-tiny-web-server">A tiny web server</h2>
+
+<p>Save this as <code>server.js</code>:</p>
+
+<pre><code>const http = require("http");
+
+const server = http.createServer((request, response) =&gt; {
+    response.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+    response.end("Hello from ToolSphere!");
+});
+
+server.listen(3000, () =&gt; {
+    console.log("Server running at http://localhost:3000");
+});</code></pre>
+
+<p>
+    Run <code>node server.js</code>, then open
+    <code>http://localhost:3000</code> in your browser. You will see the
+    message. Stop the server by pressing Ctrl+C in the terminal.
+</p>
+
+<p>
+    Your function runs every time a browser makes a <strong>request</strong>,
+    and it sends back a <strong>response</strong>: a status code (200 means
+    OK), headers describing the content, and the content itself. This request
+    and response cycle is the foundation of every web application. The next
+    guide explains it in detail.
+</p>
+
+<h2 id="npm-and-packages">npm and packages</h2>
+
+<p>
+    Writing everything yourself is slow, so developers share code as
+    <strong>packages</strong>. In a project folder:
+</p>
+
+<pre><code>npm init -y
+npm install express</code></pre>
+
+<ul>
+    <li><code>package.json</code> lists your project and its dependencies.</li>
+    <li>The <code>node_modules</code> folder holds the downloaded code. It can be huge. Add it to <code>.gitignore</code> and do not commit it, because <code>npm install</code> recreates it.</li>
+    <li><code>package-lock.json</code> records exact versions. Do commit this one.</li>
+</ul>
+
+<p>
+    <strong>Express</strong> is the most popular package for building web
+    servers. The same hello server is shorter with it:
+</p>
+
+<pre><code>const express = require("express");
+
+const app = express();
+
+app.get("/", (request, response) =&gt; {
+    response.send("Hello from Express!");
+});
+
+app.listen(3000, () =&gt; {
+    console.log("Express app running at http://localhost:3000");
+});</code></pre>
+
+<p>
+    Be careful with packages. Install only what you need, from names you can
+    verify, and check that a package is well used and maintained. Run
+    <code>npm audit</code> now and then to see known problems in what you have
+    installed.
+</p>
+
+<h2 id="environment-variables-and-secrets">Environment variables and secrets</h2>
+
+<p>
+    Settings that change between your computer and a live server, and secrets
+    such as database passwords, should not be written in your code. Read them
+    from <strong>environment variables</strong> instead:
+</p>
+
+<pre><code>const port = process.env.PORT || 3000;</code></pre>
+
+<p>
+    During development, many projects keep these values in a file called
+    <code>.env</code>. That file must be in your <code>.gitignore</code> and
+    never committed. If a secret does get exposed, replace it immediately.
+</p>
+
+<h2 id="where-node-js-fits-in-toolsphere">Where Node.js fits in ToolSphere</h2>
+
+<p>
+    ToolSphere's tools run entirely in your browser today, so they do not
+    need a server. Node.js will matter when we add features that do, such as
+    storing contact messages or publishing articles from an admin page. Keeping
+    simple tools in the browser, and using a server only when it is needed, is
+    a good design rule.
+</p>
+
+<h2 id="common-beginner-mistakes">Common beginner mistakes</h2>
+
+<ul>
+    <li><strong>"EADDRINUSE".</strong> Something is already using that port, often an older copy of your server. Stop it with Ctrl+C, or choose another port.</li>
+    <li><strong>Changes do not appear.</strong> The server does not reload by itself. Restart it, or use a recent Node version's <code>node --watch server.js</code>.</li>
+    <li><strong>"Cannot find module".</strong> You are in the wrong folder, or the package is not installed. Check with <code>pwd</code> or <code>ls</code>, and run <code>npm install</code>.</li>
+    <li><strong>Committing <code>node_modules</code> or <code>.env</code>.</strong> Add both to <code>.gitignore</code> first.</li>
+</ul>
+
+<h2 id="practice-project-a-time-api">Practice project: a time API</h2>
+
+<p>Extend your server so that <code>/api/time</code> returns the current time as JSON, and anything else returns a 404 message:</p>
+
+<pre><code>const http = require("http");
+
+const server = http.createServer((request, response) =&gt; {
+    if (request.url === "/api/time") {
+        response.writeHead(200, { "Content-Type": "application/json" });
+        response.end(JSON.stringify({ time: new Date().toISOString() }));
+        return;
+    }
+
+    response.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
+    response.end("Not found");
+});
+
+server.listen(3000);</code></pre>
+
+<p>
+    Visit <code>http://localhost:3000/api/time</code>. You have built a tiny
+    API. Then try adding a second route of your own.
+</p>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+    <li>Node.js runs JavaScript outside the browser.</li>
+    <li>Built-in modules handle files, paths and web servers.</li>
+    <li>A server answers requests with responses.</li>
+    <li>npm installs packages, so choose them carefully and keep <code>node_modules</code> out of Git.</li>
+    <li>Keep secrets in environment variables, never in code.</li>
+</ul>
+
+<h2 id="further-reading">Further reading</h2>
+
+<ul>
+    <li><a href="https://nodejs.org/docs/latest/api/">Node.js documentation: API reference</a></li>
+</ul>
+
+
+                        
+
+                        <div class="path-nav">
+                            <a class="prev" href="git-and-github-for-beginners.html"><span>PREVIOUS GUIDE</span>Git &amp; GitHub</a>
+                            <a class="next" href="what-is-a-rest-api.html"><span>NEXT GUIDE</span>REST APIs</a>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="container footer-content">
+
+            <div>
+
+                <h3>
+                    ToolSphere
+                </h3>
+
+                <p>
+                    Technology, tools and practical
+                    learning resources.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Explore
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../tools.html">
+                        Tools
+                    </a>
+
+                    <a href="../index.html#articles">
+                        Articles
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Learning
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../cybersecurity.html">
+                        Cybersecurity
+                    </a>
+
+                    <a href="../programming.html">
+                        Programming
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../about.html">
+                        About
+                    </a>
+
+                    <a href="../contact.html">
+                        Contact
+                    </a>
+
+                    <a href="../privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="../terms.html">
+                        Terms of Use
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 ToolSphere. All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

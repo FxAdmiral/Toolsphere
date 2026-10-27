@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Learn what Git and GitHub are, how to make commits and branches, and how to put your project on GitHub safely.">
+
+    <title>Git and GitHub for Beginners: Save, Track and Share Your Code | ToolSphere</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="container nav-container">
+
+            <a href="../index.html" class="logo">
+                Tool<span>Sphere</span>
+            </a>
+
+            <nav class="navigation" aria-label="Main navigation">
+
+                <a href="../index.html">Home</a>
+
+                <a href="../tools.html">Tools</a>
+
+                <a href="../cybersecurity.html">Cybersecurity</a>
+
+                <a href="../programming.html" aria-current="page">Programming</a>
+
+                <a href="../index.html#articles">Technology</a>
+
+                <a href="../contact.html">Contact</a>
+
+            </nav>
+
+            <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+
+        <section class="tool-page">
+
+            <div class="container">
+
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../index.html">Home</a> &rsaquo;
+                    <a href="../programming.html">Programming</a> &rsaquo;
+                    <span>Git &amp; GitHub</span>
+                </nav>
+
+                <div class="tool-intro">
+
+                    <p class="section-label">
+                        PROGRAMMING • GUIDE 3 OF 6
+                    </p>
+
+                    <h1>
+                        Git and GitHub for Beginners: Save, Track and Share Your Code
+                    </h1>
+
+                    <p>
+                        Learn to track every change to your project and publish it safely on GitHub.
+                    </p>
+
+                </div>
+
+
+                <div class="content-card article">
+
+
+
+
+                    <div id="panel-guide" class="tab-panel">
+
+                        <p class="meta">
+                            Published 25 October 2026 • About 5 minutes to read
+                        </p>
+
+                        <div class="toc"><p class="toc-title">In this guide</p><ol><li><a href="#git-and-github-what-is-the-difference">Git and GitHub: what is the difference?</a></li><li><a href="#why-bother">Why bother?</a></li><li><a href="#install-git-and-introduce-yourself">Install Git and introduce yourself</a></li><li><a href="#your-first-repository">Your first repository</a></li><li><a href="#files-you-must-never-commit">Files you must never commit</a></li><li><a href="#branches">Branches</a></li><li><a href="#putting-your-project-on-github">Putting your project on GitHub</a></li><li><a href="#the-everyday-workflow">The everyday workflow</a></li><li><a href="#common-problems">Common problems</a></li><li><a href="#habits-that-make-a-good-portfolio">Habits that make a good portfolio</a></li><li><a href="#practice-project">Practice project</a></li><li><a href="#summary">Summary</a></li><li><a href="#further-reading">Further reading</a></li></ol></div>
+
+
+<h2 id="git-and-github-what-is-the-difference">Git and GitHub: what is the difference?</h2>
+
+<ul>
+    <li><strong>Git</strong> is a program on your computer that records the history of your project. It remembers every saved version, so you can go back.</li>
+    <li><strong>GitHub</strong> is a website that stores Git projects online, so you can back them up, share them and work with others. Similar services include GitLab and Bitbucket.</li>
+</ul>
+
+<p>
+    You can use Git without GitHub, but not GitHub without Git. Think of Git
+    as the save history and GitHub as the cloud place you keep it.
+</p>
+
+<h2 id="why-bother">Why bother?</h2>
+
+<ul>
+    <li><strong>Undo mistakes.</strong> If a change breaks your site, you can return to a version that worked.</li>
+    <li><strong>Experiment safely</strong> on a branch without touching your working code.</li>
+    <li><strong>Back up your work</strong> off your computer.</li>
+    <li><strong>Collaborate</strong> with other people on the same project.</li>
+    <li><strong>Build a portfolio.</strong> Employers look at your GitHub profile to see real projects and how you work.</li>
+</ul>
+
+<h2 id="install-git-and-introduce-yourself">Install Git and introduce yourself</h2>
+
+<p>
+    Download Git from the official site, git-scm.com, and install it. Then open
+    a terminal (in VS Code, choose Terminal, then New Terminal) and check it
+    worked:
+</p>
+
+<pre><code>git --version</code></pre>
+
+<p>Tell Git who you are. This name and email are attached to your commits:</p>
+
+<pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"</code></pre>
+
+<p>
+    Be aware that the email in your commits can become public when you push to
+    GitHub. GitHub offers a private "noreply" email address in your account
+    settings that you can use instead.
+</p>
+
+<h2 id="your-first-repository">Your first repository</h2>
+
+<p>A <strong>repository</strong> (or repo) is a project folder that Git tracks.</p>
+
+<pre><code>mkdir my-site
+cd my-site
+git init
+
+# create or edit some files, then:
+git status
+git add .
+git commit -m "Add homepage"
+git log --oneline</code></pre>
+
+<p>These commands move your work through three areas:</p>
+
+<ul>
+    <li>The <strong>working folder</strong> is where you edit files.</li>
+    <li>The <strong>staging area</strong> is where you choose what goes into the next save. <code>git add</code> puts changes there.</li>
+    <li>The <strong>repository history</strong> is the permanent record. <code>git commit</code> saves the staged changes as a snapshot.</li>
+</ul>
+
+<p>
+    <code>git status</code> shows what has changed, and <code>git log --oneline</code>
+    lists your commits. Write commit messages that say what changed and why,
+    in a short line, such as "Fix broken link in footer". Messages like "stuff"
+    or "update" are no help to you in a month.
+</p>
+
+<h2 id="files-you-must-never-commit">Files you must never commit</h2>
+
+<p>
+    Create a file named <code>.gitignore</code> in the project root. Each line
+    is a file or folder that Git should ignore:
+</p>
+
+<pre><code>.env
+node_modules/
+.DS_Store</code></pre>
+
+<div class="notice">
+    <strong>Never commit passwords, API keys or <code>.env</code> files.</strong>
+    If a secret is committed by mistake, deleting it in a later commit does not
+    remove it from the history. Treat it as exposed: change or revoke the
+    secret straight away.
+</div>
+
+<h2 id="branches">Branches</h2>
+
+<p>
+    A <strong>branch</strong> is a separate line of work. You can build a new
+    feature on a branch, and merge it into the main code only when it works.
+</p>
+
+<pre><code>git switch -c add-contact-page
+
+# edit files, then:
+git add .
+git commit -m "Add contact page"
+
+git switch main
+git merge add-contact-page</code></pre>
+
+<p>
+    Your main branch is usually called <code>main</code>, though older
+    projects use <code>master</code>. Run <code>git branch</code> to see
+    yours. (If your Git is older than version 2.23, use
+    <code>git checkout</code> instead of <code>git switch</code>.)
+</p>
+
+<h2 id="putting-your-project-on-github">Putting your project on GitHub</h2>
+
+<ol>
+    <li>Create a free account at github.com.</li>
+    <li>Click <strong>New repository</strong>. Give it a name, and leave it empty: do not add a README, licence or .gitignore on GitHub, because your local project already has its own history.</li>
+    <li>Copy the repository address that GitHub shows you, then run these commands in your project folder:</li>
+</ol>
+
+<pre><code>git remote add origin https://github.com/YOUR-USERNAME/your-repo.git
+git branch -M main
+git push -u origin main</code></pre>
+
+<p>
+    GitHub does not accept your account password for pushing. When you push,
+    sign in through the browser window that Git Credential Manager opens (it is
+    included with Git for Windows), or use a personal access token or an SSH key.
+    GitHub Desktop is another beginner-friendly option.
+</p>
+
+<h2 id="the-everyday-workflow">The everyday workflow</h2>
+
+<pre><code>git pull
+# ...edit files...
+git add .
+git commit -m "Describe what you changed"
+git push</code></pre>
+
+<p>
+    To copy an existing project from GitHub to your computer, use
+    <code>git clone</code> followed by the repository address.
+</p>
+
+<h2 id="common-problems">Common problems</h2>
+
+<ul>
+    <li><strong>"nothing to commit".</strong> You have not changed any files, or you forgot <code>git add</code>.</li>
+    <li><strong>"failed to push some refs".</strong> The online version has changes you do not have yet. Run <code>git pull</code>, then push again.</li>
+    <li><strong>Merge conflicts.</strong> Two changes touched the same lines. Git marks the file with lines of <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>. Edit the file to keep what you want, remove the markers, then add and commit.</li>
+</ul>
+
+<h2 id="habits-that-make-a-good-portfolio">Habits that make a good portfolio</h2>
+
+<ul>
+    <li>Write a <strong>README</strong> that explains what the project is, how to run it and what you learned.</li>
+    <li>Commit small, often, with clear messages.</li>
+    <li>Keep secrets out, and use a <code>.gitignore</code> from the start.</li>
+    <li>Pin your best repositories to your GitHub profile.</li>
+</ul>
+
+<h2 id="practice-project">Practice project</h2>
+
+<p>
+    Put a small website folder, even your HTML and CSS practice page, under Git.
+    Make three commits with clear messages, create a branch that changes the
+    page colour, merge it, then push the project to a new GitHub repository.
+</p>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+    <li>Git records your project's history. GitHub stores it online.</li>
+    <li>Work moves from the working folder, to staging with <code>add</code>, to history with <code>commit</code>.</li>
+    <li>Branches let you experiment safely.</li>
+    <li>Never commit secrets, and use <code>.gitignore</code>.</li>
+    <li>Pull before you start, and push when you finish.</li>
+</ul>
+
+<h2 id="further-reading">Further reading</h2>
+
+<ul>
+    <li><a href="https://git-scm.com/book/en/v2">Pro Git (free book)</a></li>
+    <li><a href="https://docs.github.com/en/get-started">GitHub Docs: Get started</a></li>
+</ul>
+
+
+                        
+
+                        <div class="path-nav">
+                            <a class="prev" href="javascript-for-beginners.html"><span>PREVIOUS GUIDE</span>JavaScript</a>
+                            <a class="next" href="nodejs-for-beginners.html"><span>NEXT GUIDE</span>Node.js</a>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="container footer-content">
+
+            <div>
+
+                <h3>
+                    ToolSphere
+                </h3>
+
+                <p>
+                    Technology, tools and practical
+                    learning resources.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Explore
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../tools.html">
+                        Tools
+                    </a>
+
+                    <a href="../index.html#articles">
+                        Articles
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Learning
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../cybersecurity.html">
+                        Cybersecurity
+                    </a>
+
+                    <a href="../programming.html">
+                        Programming
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../about.html">
+                        About
+                    </a>
+
+                    <a href="../contact.html">
+                        Contact
+                    </a>
+
+                    <a href="../privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="../terms.html">
+                        Terms of Use
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 ToolSphere. All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>
