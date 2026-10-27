@@ -84,8 +84,8 @@
                     </h1>
 
                     <p>
-                        Tidy up JSON, shrink it, or find out exactly
-                        where it is broken.
+                        Open or paste JSON and see the original and the tidy,
+                        readable version side by side.
                     </p>
 
                 </div>
@@ -106,26 +106,6 @@
                     <h2>
                         Format and Check JSON
                     </h2>
-
-
-                    <!-- INPUT -->
-
-                    <div class="json-group">
-
-                        <label for="jsonInput">
-                            Your JSON
-                        </label>
-
-                        <textarea
-                            id="jsonInput"
-                            placeholder="Paste or type JSON here..."
-                            rows="10"
-                            wrap="off"
-                            spellcheck="false"
-                            autocomplete="off"
-                        ></textarea>
-
-                    </div>
 
 
                     <!-- INDENT -->
@@ -219,47 +199,78 @@
                     <pre id="jsonErrorContext" class="json-context" hidden></pre>
 
 
-                    <!-- RESULT -->
+                    <!-- ORIGINAL AND FORMATTED, SIDE BY SIDE -->
 
-                    <div class="json-result">
+                    <div class="json-compare">
 
-                        <div class="json-result-header">
+                        <div class="json-panel">
 
-                            <h3>
-                                Result
-                            </h3>
+                            <div class="json-result-header">
 
-                            <span class="json-result-actions">
+                                <h3 id="jsonInputTitle">
+                                    Original
+                                </h3>
 
-                                <button
-                                    type="button"
-                                    id="downloadJsonButton">
+                                <span class="json-stats" id="jsonInputStats"></span>
 
-                                    Download
+                            </div>
 
-                                </button>
-
-                            <button
-                                type="button"
-                                id="copyJsonButton">
-
-                                Copy
-
-                            </button>
-
-                            </span>
+                            <textarea
+                                id="jsonInput"
+                                aria-labelledby="jsonInputTitle"
+                                placeholder="Paste JSON here, or click Open file..."
+                                rows="16"
+                                wrap="off"
+                                spellcheck="false"
+                                autocomplete="off"
+                            ></textarea>
 
                         </div>
 
-                        <textarea
-                            id="jsonOutput"
-                            aria-label="Result"
-                            readonly
-                            placeholder="Your result will appear here..."
-                            rows="10"
-                            wrap="off"
-                            spellcheck="false"
-                        ></textarea>
+
+                        <div class="json-panel json-result">
+
+                            <div class="json-result-header">
+
+                                <h3 id="jsonOutputTitle">
+                                    Formatted
+                                </h3>
+
+                                <span class="json-result-actions">
+
+                                    <span class="json-stats" id="jsonOutputStats"></span>
+
+                                    <button
+                                        type="button"
+                                        id="downloadJsonButton">
+
+                                        Download
+
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        id="copyJsonButton">
+
+                                        Copy
+
+                                    </button>
+
+                                </span>
+
+                            </div>
+
+                            <textarea
+                                id="jsonOutput"
+                                aria-labelledby="jsonOutputTitle"
+                                readonly
+                                placeholder="The tidy version appears here..."
+                                rows="16"
+                                wrap="off"
+                                spellcheck="false"
+                            ></textarea>
+
+                        </div>
 
                     </div>
 

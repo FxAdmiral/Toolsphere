@@ -1401,6 +1401,53 @@ if (clearJsonButton) {
 }
 
 
+function describeJsonText(text) {
+
+    if (!text) {
+        return "";
+    }
+
+    const lines = text.split("\n").length;
+
+    return lines + (lines === 1 ? " line" : " lines") +
+        " • " + text.length + " characters";
+}
+
+
+function updateJsonStats() {
+
+    const inputStats =
+        document.getElementById("jsonInputStats");
+
+    const outputStats =
+        document.getElementById("jsonOutputStats");
+
+    if (inputStats && jsonInput) {
+        inputStats.textContent = describeJsonText(jsonInput.value);
+    }
+
+    if (outputStats && jsonOutput) {
+        outputStats.textContent = describeJsonText(jsonOutput.value);
+    }
+}
+
+
+if (jsonInput) {
+
+    jsonInput.addEventListener("input", updateJsonStats);
+
+    const jsonButtonRow = document.querySelector(".json-buttons");
+
+    if (jsonButtonRow) {
+        jsonButtonRow.addEventListener("click", function () {
+            updateJsonStats();
+        });
+    }
+
+    updateJsonStats();
+}
+
+
 const openJsonButton =
     document.getElementById("openJsonButton");
 
@@ -1451,11 +1498,24 @@ if (openJsonButton && jsonFile && jsonInput) {
                     jsonOutput.value = "";
                 }
 
-                showJsonMessage(
-                    "Loaded " + file.name + " in your browser. " +
-                    "Nothing was uploaded. Now click Format, Minify or Validate.",
-                    "ok"
-                );
+                const formatButton =
+                    document.getElementById("formatJsonButton");
+
+                if (formatButton) {
+                    formatButton.click();
+                }
+
+                if (jsonMessage && jsonMessage.classList.contains("is-error")) {
+                    // the error message from Format already explains the problem
+                } else {
+                    showJsonMessage(
+                        "Loaded " + file.name + " in your browser and formatted it. " +
+                        "Nothing was uploaded. Original on the left, formatted on the right.",
+                        "ok"
+                    );
+                }
+
+                updateJsonStats();
 
                 jsonFile.value = "";
             };
