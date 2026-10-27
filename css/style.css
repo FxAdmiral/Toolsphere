@@ -3617,3 +3617,13 @@ button:focus-visible {
     }
 
 }
+
+/* Original JSON wraps, so a one-line file is fully visible */
+
+.json-tool #jsonInput {
+    white-space: pre-wrap;
+
+    word-break: break-all;
+
+    overflow-x: hidden;
+}
