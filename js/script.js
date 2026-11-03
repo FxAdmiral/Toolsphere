@@ -3,7 +3,126 @@
    Password Generator
    Password Strength Checker
    Hash Generator
+   Base64, JSON, Theme toggle, Menu, Tabs
 ========================================================= */
+
+
+/* =========================================================
+   0. THEME (LIGHT / DARK)
+   Light is the default. The visitor's choice is remembered
+   in this browser only (localStorage), and never sent anywhere.
+========================================================= */
+
+(function () {
+
+    const storageKey = "toolsphere-theme";
+
+    function readTheme() {
+
+        try {
+            return localStorage.getItem(storageKey) === "dark"
+                ? "dark"
+                : "light";
+        } catch (error) {
+            return "light";
+        }
+    }
+
+    function saveTheme(theme) {
+
+        try {
+            localStorage.setItem(storageKey, theme);
+        } catch (error) {
+            // Storage can be blocked. The theme still changes for this visit.
+        }
+    }
+
+    function applyTheme(theme) {
+
+        if (theme === "dark") {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.removeAttribute("data-theme");
+        }
+
+        const button = document.getElementById("themeToggle");
+
+        if (button) {
+
+            const isDark = theme === "dark";
+
+            button.textContent = isDark ? "\u2600" : "\u263E";
+
+            button.setAttribute("aria-pressed", String(isDark));
+
+            button.setAttribute(
+                "aria-label",
+                isDark
+                    ? "Switch to light theme"
+                    : "Switch to dark theme"
+            );
+
+            button.setAttribute(
+                "title",
+                isDark
+                    ? "Switch to light theme"
+                    : "Switch to dark theme"
+            );
+        }
+    }
+
+    // Apply the saved theme straight away, without a colour fade.
+    document.documentElement.classList.add("theme-instant");
+
+    applyTheme(readTheme());
+
+    setTimeout(function () {
+        document.documentElement.classList.remove("theme-instant");
+    }, 60);
+
+    function addToggleButton() {
+
+        const bar = document.querySelector(".nav-container");
+
+        if (!bar || document.getElementById("themeToggle")) {
+            return;
+        }
+
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.id = "themeToggle";
+        button.className = "theme-toggle";
+
+        const menuButton = bar.querySelector(".menu-button");
+
+        if (menuButton) {
+            bar.insertBefore(button, menuButton);
+        } else {
+            bar.appendChild(button);
+        }
+
+        button.addEventListener("click", function () {
+
+            const next =
+                document.documentElement.getAttribute("data-theme") === "dark"
+                    ? "light"
+                    : "dark";
+
+            applyTheme(next);
+            saveTheme(next);
+        });
+
+        applyTheme(readTheme());
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", addToggleButton);
+    } else {
+        addToggleButton();
+    }
+
+})();
 
 
 /* =========================================================
