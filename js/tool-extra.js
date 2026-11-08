@@ -1001,12 +1001,16 @@
         }
 
 
-        function convertColor() {
+        function convertColor(live) {
 
             const value = colorInput.value.trim();
 
             if (!value) {
-                showMessage(colorMessage, "Enter a color, such as #2563eb or rgb(37, 99, 235).", true);
+                showMessage(
+                    colorMessage,
+                    live ? "" : "Enter a color code or a color name, such as #2563eb or blue.",
+                    !live
+                );
                 return;
             }
 
@@ -1016,7 +1020,12 @@
             probe.style.color = value;
 
             if (probe.style.color === "") {
-                showMessage(colorMessage, "That is not a color the browser understands.", true);
+                showMessage(
+                    colorMessage,
+                    live ? "Keep typing... (a code like #ff7f50 or a name like coral)" :
+                        "That is not a color code or name the browser understands.",
+                    !live
+                );
                 return;
             }
 
@@ -1070,17 +1079,24 @@
             showMessage(colorMessage, note, false);
         }
 
-        byId("convertColorButton").addEventListener("click", convertColor);
+        byId("convertColorButton").addEventListener("click", function () {
+            convertColor(false);
+        });
+
+        /* Convert while the person types, and when they pick a name from the list */
+        colorInput.addEventListener("input", function () {
+            convertColor(true);
+        });
 
         colorInput.addEventListener("keydown", function (event) {
             if (event.key === "Enter") {
-                convertColor();
+                convertColor(false);
             }
         });
 
         colorPicker.addEventListener("input", function () {
             colorInput.value = colorPicker.value;
-            convertColor();
+            convertColor(true);
         });
 
         ["Hex", "Rgb", "Hsl", "Name"].forEach(function (name) {
@@ -1089,7 +1105,7 @@
             });
         });
 
-        convertColor();
+        convertColor(true);
     }
 
 
