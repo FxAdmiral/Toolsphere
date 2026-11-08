@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Test regular expressions against your own text and see every match and capture group with ToolSphere's free online tool.">
+
+    <title>Regex Tester | ToolSphere</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tools-extra.css">
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="header">
+
+        <div class="container nav-container">
+
+            <a href="../index.html" class="logo">
+                Tool<span>Sphere</span>
+            </a>
+
+
+            <nav class="navigation" aria-label="Main navigation">
+
+                <a href="../index.html">Home</a>
+
+                <a href="../tools.html" aria-current="page">Tools</a>
+
+                <a href="../cybersecurity.html">Cybersecurity</a>
+
+                <a href="../programming.html">Programming</a>
+
+                <a href="../index.html#articles">Technology</a>
+
+                <a href="../contact.html">Contact</a>
+
+            </nav>
+
+            <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main>
+        <section class="tool-page">
+            <div class="container">
+
+                <div class="tool-intro">
+                    <p class="section-label">TOOLSPHERE DEVELOPER TOOL</p>
+                    <h1>Regex Tester</h1>
+                    <p>Try a regular expression on your own text and see each match and group.</p>
+                </div>
+
+                <p class="privacy-note">
+                    🔒 Runs entirely in your browser. Nothing you type is uploaded or stored.
+                </p>
+
+                <div class="base64-tool">
+                    <h2>Test a regular expression</h2>
+
+                    <div class="x-field">
+                        <label for="rxPattern">Pattern (without the slashes)</label>
+                        <input type="text" id="rxPattern" placeholder="For example (\w+)@(\w+)\.com" autocomplete="off" spellcheck="false">
+                    </div>
+
+                    <div class="x-options">
+                        <label><input type="checkbox" id="rxFlagg" checked> g (all matches)</label>
+                        <label><input type="checkbox" id="rxFlagi"> i (ignore case)</label>
+                        <label><input type="checkbox" id="rxFlagm"> m (multi-line)</label>
+                        <label><input type="checkbox" id="rxFlags"> s (dot matches new line)</label>
+                        <label><input type="checkbox" id="rxFlagu"> u (unicode)</label>
+                    </div>
+
+                    <div class="b64-group">
+                        <label for="rxText">Text to search</label>
+                        <textarea id="rxText" rows="6" placeholder="Paste the text you want to search..."></textarea>
+                    </div>
+
+                    <div class="b64-buttons">
+                        <button type="button" id="rxRunButton" class="button primary-button">Test</button>
+                        <button type="button" id="rxClearButton" class="button secondary-button">Clear</button>
+                    </div>
+
+                    <p id="rxMessage" class="b64-message" role="status"></p>
+
+                    <div class="b64-result">
+                        <div class="b64-result-header">
+                            <h3>Matches</h3>
+                            <button type="button" id="copyRxButton" class="x-copy">Copy</button>
+                        </div>
+                        <textarea id="rxOutput" class="x-output x-output-wide" aria-label="Matches" readonly rows="8" placeholder="Matches will appear here..."></textarea>
+                    </div>
+
+                    <div class="b64-information">
+                        <h3>About regular expressions</h3>
+                        <p>
+                            A regular expression (regex) is a short pattern that describes text. Developers use them to search,
+                            validate and clean up text: finding email addresses in a file, checking that a phone number
+                            has the right shape, or pulling values out of a log line.
+                        </p>
+                        <p>
+                            A few basics: <code>.</code> matches any character, <code>\d</code> a digit, <code>\w</code> a letter,
+                            digit or underscore, <code>+</code> means one or more, <code>*</code> zero or more,
+                            <code>^</code> and <code>$</code> the start and end, and brackets <code>( )</code> capture a group.
+                        </p>
+                        <p>
+                            This tester uses JavaScript's regex rules, which are close to but not identical to other languages.
+                            It runs in a separate background task and stops after 2 seconds, so a pattern that is accidentally very slow
+                            will not freeze the page.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+        <div class="container footer-content">
+
+
+            <div>
+
+                <h3>
+                    ToolSphere
+                </h3>
+
+                <p>
+                    Technology, tools and practical
+                    learning resources.
+                </p>
+
+            </div>
+
+
+
+            <div>
+
+                <h4>
+                    Explore
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../tools.html">
+                        Tools
+                    </a>
+
+                    <a href="../index.html#articles">
+                        Articles
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <div>
+
+                <h4>
+                    Learning
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../cybersecurity.html">
+                        Cybersecurity
+                    </a>
+
+                    <a href="../programming.html">
+                        Programming
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <div>
+
+                <h4>
+                    Company
+                </h4>
+
+                <div class="footer-links">
+
+                    <a href="../about.html">
+                        About
+                    </a>
+
+                    <a href="../privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="../terms.html">
+                        Terms of Use
+                    </a>
+
+                    <a href="../contact.html">
+                        Contact
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="copyright">
+
+            © 2026 ToolSphere. All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../js/script.js"></script>
+    <script src="../js/tools-extra.js"></script>
+
+</body>
+
+</html>

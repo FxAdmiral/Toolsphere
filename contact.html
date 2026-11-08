@@ -14,7 +14,7 @@
     <title>Contact | ToolSphere</title>
 
     <link rel="stylesheet" href="css/style.css">
-
+    <link rel="stylesheet" href="css/tools-extra.css">
 </head>
 
 
@@ -82,10 +82,73 @@
 
                 <div class="content-card">
 
-                    <h2>Email us</h2>
+                    <h2>Send us a message</h2>
 
                     <p>
-                        The best way to reach ToolSphere is by email:
+                        Fill in the form and we will read it. We reply by email,
+                        so please use an address you check.
+                    </p>
+
+                    <form
+                        id="contactForm"
+                        class="contact-form"
+                        name="contact"
+                        method="POST"
+                        action="/contact.html?sent=1"
+                        data-netlify="true"
+                        netlify-honeypot="bot-field">
+
+                        <input type="hidden" name="form-name" value="contact">
+
+                        <p class="contact-hp" aria-hidden="true">
+                            <label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+                        </p>
+
+                        <div class="x-field">
+                            <label for="contactName">Your name</label>
+                            <input type="text" id="contactName" name="name" required maxlength="100" autocomplete="name">
+                        </div>
+
+                        <div class="x-field">
+                            <label for="contactEmail">Your email address</label>
+                            <input type="email" id="contactEmail" name="email" required maxlength="200" autocomplete="email">
+                        </div>
+
+                        <div class="x-field">
+                            <label for="contactTopic">What is it about?</label>
+                            <select id="contactTopic" name="topic">
+                                <option>Bug report</option>
+                                <option>Tool or article idea</option>
+                                <option>Correction</option>
+                                <option>Privacy question</option>
+                                <option>Something else</option>
+                            </select>
+                        </div>
+
+                        <div class="x-field">
+                            <label for="contactMessage">Your message</label>
+                            <textarea id="contactMessage" name="message" rows="7" required minlength="10" maxlength="3000"></textarea>
+                        </div>
+
+                        <p class="contact-privacy">
+                            We use what you send only to read and reply to your message.
+                            See our <a href="privacy.html">Privacy Policy</a>.
+                            Please do not include passwords or other sensitive information.
+                        </p>
+
+                        <button type="submit" class="button primary-button" id="contactSubmit">Send message</button>
+
+                        <p id="contactStatus" class="b64-message" role="status"></p>
+
+                    </form>
+
+                </div>
+
+                <div class="content-card" style="margin-top:28px">
+                    <h2>Or email us</h2>
+
+                    <p>
+                        You can also write to us directly:
                     </p>
 
                     <p class="contact-email">
@@ -227,6 +290,7 @@
     <!-- JAVASCRIPT -->
 
     <script src="js/script.js"></script>
+    <script src="js/tools-extra.js"></script>
 
 </body>
 
