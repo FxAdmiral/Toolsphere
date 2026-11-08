@@ -9,7 +9,7 @@
           content="width=device-width, initial-scale=1.0">
 
     <meta name="description"
-          content="Convert colors between HEX, RGB and HSL and check text contrast with ToolSphere's free online tool. Runs in your browser.">
+          content="Turn a color code into its name or a color name into its code, and convert HEX, RGB and HSL with ToolSphere\'s free online tool.">
 
     <title>Color Converter | ToolSphere</title>
 
@@ -71,7 +71,7 @@
                 <div class="tool-intro">
                     <p class="section-label">TOOLSPHERE DEVELOPER TOOL</p>
                     <h1>Color Converter</h1>
-                    <p>Convert a color between HEX, RGB and HSL, and see how readable text on it would be.</p>
+                    <p>Turn a color code into its name, or a color name into its code. Also converts HEX, RGB and HSL.</p>
                 </div>
 
                 <p class="privacy-note">
@@ -84,12 +84,18 @@
                     <div class="x-swatch" id="colorSwatch" role="img" aria-label="Color preview"></div>
 
                     <div class="x-field">
-                        <label for="colorInput">Color (HEX, RGB, HSL or a name)</label>
+                        <label for="colorInput">Type a color code OR a color name</label>
                         <div class="x-field-row">
-                            <input type="text" id="colorInput" value="#2563eb" autocomplete="off" spellcheck="false">
+                            <input type="text" id="colorInput" value="#2563eb" list="colorNameList" autocomplete="off" spellcheck="false" placeholder="#ff7f50, rgb(255, 127, 80) or coral">
+                            <datalist id="colorNameList"></datalist>
                             <input type="color" id="colorPicker" class="x-picker" value="#2563eb" aria-label="Pick a color">
                         </div>
                     </div>
+
+                    <p class="contact-privacy" style="margin:0 0 18px">
+                        Type a <strong>code</strong> such as <code>#ff7f50</code> to get the color's name, or type a
+                        <strong>name</strong> such as <code>red</code>, <code>orange</code> or <code>coral</code> to get its code.
+                    </p>
 
                     <div class="b64-buttons">
                         <button type="button" id="convertColorButton" class="button primary-button">Convert</button>
@@ -99,6 +105,20 @@
 
                     <div class="b64-result">
                         <div class="b64-result-header"><h3>Results</h3></div>
+
+                        <div class="x-field">
+                            <label for="colorName">Closest color name</label>
+                            <div class="x-field-row">
+                                <input type="text" id="colorName" readonly>
+                                <button type="button" id="copyColorNameButton" class="x-copy">Copy</button>
+                            </div>
+                        </div>
+                        <div class="x-field">
+                            <label for="colorFamily">Basic color</label>
+                            <div class="x-field-row">
+                                <input type="text" id="colorFamily" readonly>
+                            </div>
+                        </div>
 
                         <div class="x-field">
                             <label for="colorHex">HEX</label>
@@ -126,9 +146,9 @@
                     <pre id="colorContrast" class="x-times" aria-live="polite"></pre>
 
                     <div class="b64-information">
-                        <h3>About color formats</h3>
+                        <h3>About color formats and names</h3>
                         <p>
-                            The same color can be written several ways. <strong>HEX</strong> (<code>#2563eb</code>) is the most common in CSS.
+                            The same color can be written several ways, and many have a name. Browsers understand 148 standard color names, such as <code>tomato</code>, <code>navy</code> and <code>gold</code>. If your code has no exact name, the tool shows the closest one and says "about". <strong>HEX</strong> (<code>#2563eb</code>) is the most common in CSS.
                             <strong>RGB</strong> gives the amounts of red, green and blue from 0 to 255.
                             <strong>HSL</strong> gives the hue (0 to 360 degrees), saturation and lightness, which is easier to adjust by hand.
                         </p>
