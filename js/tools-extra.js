@@ -1147,7 +1147,9 @@
             }).then(function (response) {
 
                 if (!response.ok) {
-                    throw new Error("Not sent");
+                    const failure = new Error("Not sent");
+                    failure.code = response.status;
+                    throw failure;
                 }
 
                 contactForm.reset();
@@ -1158,11 +1160,16 @@
                     false
                 );
 
-            }).catch(function () {
+            }).catch(function (error) {
+
+                const reason = error && error.code ?
+                    " (error " + error.code + ")" :
+                    " (could not reach the server)";
 
                 showMessage(
                     contactStatus,
-                    "Sorry, the message could not be sent. Please email toolsphere.contact@gmail.com instead.",
+                    "Sorry, the message could not be sent" + reason +
+                    ". Please email toolsphere.contact@gmail.com instead.",
                     true
                 );
 
